@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DERISBOURG Lou — Statistiques 2026-2027</title>
+<style>
+:root{--r:#2563eb;--r-soft:#dbeafe;--v:#ea580c;--v-soft:#ffedd5;--bg:#f1f5f9;--card:#fff;
+--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--ok:#16a34a;}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+background:var(--bg);color:var(--ink);line-height:1.45}
+.hero{background:radial-gradient(1200px 400px at 10% -10%,#1e3a8a 0,transparent 60%),
+radial-gradient(900px 400px at 100% 0,#9a3412 0,transparent 55%),#0f172a;color:#fff;padding:28px 20px 90px}
+.wrap{max-width:1180px;margin:0 auto}
+.crumbs{display:flex;flex-wrap:wrap;gap:8px;font-size:.82rem}
+.chip{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);padding:3px 10px;border-radius:999px}
+.scoreboard{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;margin-top:26px}
+.team{display:flex;flex-direction:column;gap:4px}
+.team.r{text-align:right;align-items:flex-end}
+.team .label{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;opacity:.7}
+.team .name{font-size:1.7rem;font-weight:700}
+.team.r .name{border-right:5px solid var(--r);padding-right:12px}
+.team.v .name{border-left:5px solid var(--v);padding-left:12px}
+.score{font-size:3.6rem;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:.02em;
+background:rgba(255,255,255,.08);padding:6px 26px;border-radius:18px;white-space:nowrap}
+.score small{font-size:1.4rem;opacity:.6;margin:0 6px}
+.result{text-align:center;margin-top:8px;font-size:.9rem;opacity:.85}
+.meta{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 26px;margin-top:22px;font-size:.92rem;opacity:.92}
+.meta span b{font-weight:600}
+main{margin-top:-64px;padding:0 20px 40px}
+.grid{display:grid;gap:18px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr))}
+.card{min-width:0}.table-scroll{overflow-x:auto}
+.card{background:var(--card);border-radius:16px;box-shadow:0 1px 2px rgba(15,23,42,.06),0 8px 24px rgba(15,23,42,.06);padding:20px}
+.card h2{margin:0 0 14px;font-size:1.05rem;display:flex;align-items:center;gap:8px}
+.card h2 .tag{font-size:.7rem;font-weight:600;padding:2px 8px;border-radius:999px;color:#fff}
+.tag.r{background:var(--r)}.tag.v{background:var(--v)}
+.section-title{margin:30px 0 12px;font-size:1.25rem}
+.podium{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.podium li{display:grid;grid-template-columns:38px 1fr auto;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;background:#f8fafc}
+.medal{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:800;color:#fff}
+.m1{background:linear-gradient(135deg,#facc15,#ca8a04)}.m2{background:linear-gradient(135deg,#cbd5e1,#64748b)}
+.m3{background:linear-gradient(135deg,#fdba74,#b45309)}
+.podium .who b{display:block}.podium .who small{color:var(--muted)}
+.podium .goals{font-size:1.6rem;font-weight:800;font-variant-numeric:tabular-nums}
+.r .goals{color:var(--r)}.v .goals{color:var(--v)}
+.empty{color:var(--muted);font-style:italic}
+.kpi{display:flex;flex-direction:column;gap:6px}
+.kpi .k-title{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.kpi .k-val{font-size:2.2rem;font-weight:800;font-variant-numeric:tabular-nums}
+.kpi .k-sub{font-size:.85rem;color:var(--muted)}
+.duel{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+.duel:last-child{border-bottom:0}
+.duel .lab{text-align:center;font-size:.8rem;color:var(--muted);min-width:150px}
+.duel .vr{text-align:right;font-weight:700;color:var(--r)}.duel .vv{font-weight:700;color:var(--v)}
+.bar{height:6px;border-radius:6px;background:var(--line);overflow:hidden;margin-top:4px;display:flex}
+.bar i{display:block;height:100%}
+.chart-box{position:relative;height:420px}
+.chart-box.small{height:220px}
+.legend-note{font-size:.82rem;color:var(--muted);margin-top:8px}
+table{width:100%;border-collapse:collapse;font-size:.88rem;font-variant-numeric:tabular-nums}
+th,td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:center}
+th{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
+td.l,th.l{text-align:left}
+tr.off td{color:var(--muted)}
+.num{display:inline-grid;place-items:center;min-width:28px;height:24px;border-radius:7px;font-weight:700;font-size:.8rem;color:#fff}
+.r .num{background:var(--r)}.v .num{background:var(--v)}
+.badge{font-size:.66rem;font-weight:700;border-radius:5px;padding:1px 5px;margin-left:5px;vertical-align:middle}
+.b-cap{background:#0f172a;color:#fff}.b-gk{background:#e2e8f0;color:#334155}
+.sanc{display:inline-block;width:9px;height:12px;border-radius:2px;margin-right:2px;vertical-align:-1px}
+.s-y{background:#facc15}.s-2{background:#94a3b8}.s-r{background:#dc2626}
+.periods td,.periods th{text-align:center}
+.officials{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px 20px;font-size:.9rem}
+.officials div small{display:block;color:var(--muted);font-size:.75rem;text-transform:uppercase;letter-spacing:.06em}
+.warn{background:#fef3c7;color:#92400e;border-radius:12px;padding:10px 14px;font-size:.88rem;margin-bottom:18px}
+footer{text-align:center;color:var(--muted);font-size:.8rem;padding:10px 0 30px}
+@media (max-width:720px){.scoreboard{grid-template-columns:1fr}.team.r{text-align:left;align-items:flex-start}
+.team.r .name{border-right:0;border-left:5px solid var(--r);padding:0 0 0 12px}.score{justify-self:start;font-size:2.6rem}
+.chart-box{height:320px}}
+
+.player{display:flex;align-items:center;gap:24px;margin-top:24px}
+.avatar{flex:none;width:104px;height:104px;border-radius:50%;display:grid;place-items:center;
+font-size:2.4rem;font-weight:800;background:linear-gradient(135deg,var(--r),#1e3a8a);
+border:3px solid rgba(255,255,255,.25);box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.player .label{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;opacity:.7}
+.player h1{margin:2px 0 4px;font-size:2.3rem;line-height:1.1}
+.player .sub{opacity:.85}
+.record{display:flex;gap:8px;margin-left:auto;text-align:center}
+.record div{background:rgba(255,255,255,.08);border-radius:14px;padding:8px 14px;min-width:64px}
+.record b{display:block;font-size:1.6rem;font-variant-numeric:tabular-nums}
+.record small{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;opacity:.75}
+.res{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:6px;color:#fff;font-weight:700;font-size:.75rem}
+.res.V{background:var(--ok)}.res.N{background:#94a3b8}.res.D{background:#dc2626}.res.X{background:#cbd5e1}
+tr.me td{background:var(--r-soft);font-weight:700}
+.disc{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;text-align:center}
+.disc div{background:#f8fafc;border-radius:12px;padding:12px 6px}
+.disc .ico{width:22px;height:30px;border-radius:4px;margin:0 auto 6px;display:grid;place-items:center;font-size:.7rem;font-weight:800;color:#334155}
+.disc b{display:block;font-size:1.6rem;font-variant-numeric:tabular-nums}
+.disc small{color:var(--muted);font-size:.75rem}
+.s-b{background:#2563eb}
+a.lien{color:var(--r);text-decoration:none;font-weight:600}a.lien:hover{text-decoration:underline}
+.chart-box.mid{height:300px}
+@media (max-width:720px){.player{flex-wrap:wrap}.record{margin-left:0}}
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+  <div class="crumbs"><span class="chip">2026-2027</span><span class="chip">SENIOR_M</span><span class="chip">DAIKIN STARLIGUE 2026-27</span></div>
+  <div class="player">
+    <div class="avatar">5</div>
+    <div><span class="label">Joueur de champ · Saison 2026-2027</span>
+      <h1>Lou DERISBOURG</h1>
+      <div class="sub">NIMES USAM GARD</div></div>
+    <div class="record">
+      <div><b>5</b><small>Matchs</small></div>
+      <div><b>13</b><small>Buts</small></div>
+      <div><b>2,6</b><small>Par match</small></div>
+    </div>
+  </div>
+  <div class="meta"><span>🪪 <b>Licence :</b> 6130002108023</span><span>🏟️ <b>Club :</b> USAM NIMES GARD NIMOISES</span><span>👕 <b>Équipe :</b> NIMES USAM GARD</span><span>🎽 <b>Maillot :</b> n°5</span><span>🤾 <b>Poste :</b> Joueur de champ</span></div>
+</div></header>
+
+<main><div class="wrap">
+  <div class="grid g4"><div class="card kpi"><span class="k-title">Buts marqués</span><span class="k-val" style="color:var(--r)">13</span><span class="k-sub"><b>2,6</b> par match · 0 sur 7 m</span></div><div class="card kpi"><span class="k-title">Réussite au tir</span><span class="k-val" style="color:var(--r)">100 %</span><span class="k-sub">13 buts sur 13 tirs · 0 non cadré(s)</span></div><div class="card kpi"><span class="k-title">Matchs joués</span><span class="k-val">5</span><span class="k-sub">3 V · 0 N · 2 D · différence -4</span></div><div class="card kpi"><span class="k-title">Meilleur match (buts)</span><span class="k-val" style="color:var(--r)">5</span><span class="k-sub">à <b>SARAN LOIRET</b> le 18/09/2026 (32-31) · 5/5 tirs</span></div><div class="card kpi"><span class="k-title">Rang buteur</span><span class="k-val" style="color:var(--r)">5e</span><span class="k-sub">dans son équipe (17 joueurs) · <b>99e</b> / 298 sur sa/ses poule(s)</span></div><div class="card kpi"><span class="k-title">Part des buts de l&#x27;équipe</span><span class="k-val">8 %</span><span class="k-sub">13 des 158 buts de l'équipe sur ses matchs</span></div><div class="card kpi"><span class="k-title">Cartons et pénalités</span><span class="k-val">2</span><span class="k-sub">4 min d'exclusion · 3/5 match(s) sans sanction</span></div></div>
+
+  <h2 class="section-title">📈 Match par match</h2>
+  <div class="card">
+    <div class="chart-box"><canvas id="chart-matchs" aria-label="Buts et arrêts par match"></canvas></div>
+    <p class="legend-note">Survolez une barre pour afficher l'adversaire, le score et le détail des tirs.</p>
+  </div>
+
+  <div class="grid g2" style="margin-top:18px">
+    <div class="card"><h2>⏱️ Moments du match</h2>
+      <div class="chart-box mid"><canvas id="chart-tranches" aria-label="Répartition par tranche de 5 minutes"></canvas></div></div>
+    <div class="card"><h2>🎯 Répartition des tirs</h2>
+      <div class="chart-box mid"><canvas id="chart-tirs" aria-label="Répartition des tirs"></canvas></div></div>
+  </div>
+
+  <div class="grid g2" style="margin-top:18px">
+    <div class="card"><h2>📊 En détail</h2><div class="duel" style="grid-template-columns:1fr auto"><span class="lab" style="text-align:left">Buts en jeu / sur 7 m</span><span class="vr">13 / 0</span></div><div class="duel" style="grid-template-columns:1fr auto"><span class="lab" style="text-align:left">Tirs ratés (cadrés) / non cadrés</span><span class="vr">0 / 0</span></div><div class="duel" style="grid-template-columns:1fr auto"><span class="lab" style="text-align:left">Buts par période</span><span class="vr">P1 : 4 · P2 : 9</span></div><div class="duel" style="grid-template-columns:1fr auto"><span class="lab" style="text-align:left">Période la plus prolifique</span><span class="vr">15'-20'</span></div><div class="duel" style="grid-template-columns:1fr auto"><span class="lab" style="text-align:left">But le plus précoce</span><span class="vr">15'43</span></div><div class="duel" style="grid-template-columns:1fr auto"><span class="lab" style="text-align:left">Matchs avec au moins un but</span><span class="vr">4 / 5</span></div><div class="duel" style="grid-template-columns:1fr auto"><span class="lab" style="text-align:left">Plus longue série de matchs en marquant</span><span class="vr">2 match(s)</span></div><div class="duel" style="grid-template-columns:1fr auto"><span class="lab" style="text-align:left">Moy. buts domicile / extérieur</span><span class="vr">2,0 / 3,5</span></div><div class="duel" style="grid-template-columns:1fr auto"><span class="lab" style="text-align:left">Bilan de l&#x27;équipe (V-N-D)</span><span class="vr">3-0-2</span></div><div class="duel" style="grid-template-columns:1fr auto"><span class="lab" style="text-align:left">Différence de buts de l&#x27;équipe</span><span class="vr">-4</span></div></div>
+    <div class="card"><h2>🟨 Discipline</h2><div class="disc"><div><span class="ico sanc s-y"></span><b>0</b><small>Avertissement(s)</small></div><div><span class="ico sanc s-2">2'</span><b>2</b><small>Exclusion(s) 2 min</small></div><div><span class="ico sanc s-r"></span><b>0</b><small>Carton(s) rouge(s)</small></div><div><span class="ico sanc s-b"></span><b>0</b><small>Carton(s) bleu(s)</small></div></div>
+      <h2 style="margin-top:22px">🏅 Buteurs de l'équipe</h2>
+      <div class="table-scroll"><table><thead><tr><th>#</th><th class="l">Joueur</th><th>Matchs</th><th>Buts</th>
+      <th>Moy.</th><th>Arrêts</th></tr></thead><tbody><tr class=""><td>1</td><td class="l">FAUSTIN Jean-loup</td><td>5</td><td><b>27</b></td><td>5,4</td><td>—</td></tr><tr class=""><td>2</td><td class="l">VINCENT Gueric</td><td>5</td><td><b>27</b></td><td>5,4</td><td>—</td></tr><tr class=""><td>3</td><td class="l">KAMTCHOP--BARIL Hugo</td><td>5</td><td><b>19</b></td><td>3,8</td><td>—</td></tr><tr class=""><td>4</td><td class="l">GIBELIN Yoann</td><td>5</td><td><b>17</b></td><td>3,4</td><td>—</td></tr><tr class="me"><td>5</td><td class="l">DERISBOURG Lou</td><td>5</td><td><b>13</b></td><td>2,6</td><td>—</td></tr><tr class=""><td>6</td><td class="l">LAFOSSE Bastien</td><td>5</td><td><b>11</b></td><td>2,2</td><td>—</td></tr><tr class=""><td>7</td><td class="l">ONODI-JANOSKUTI Mate</td><td>5</td><td><b>11</b></td><td>2,2</td><td>—</td></tr><tr class=""><td>8</td><td class="l">GIBERNON Damien</td><td>5</td><td><b>6</b></td><td>1,2</td><td>—</td></tr></tbody></table></div></div>
+  </div>
+
+  <h2 class="section-title">📋 Matchs de la saison</h2>
+  <div class="card"><div class="table-scroll"><table>
+    <thead><tr><th>Date</th><th>Journée</th><th class="l">Adversaire</th><th>Rés.</th><th>Score</th><th>N°</th>
+    <th>Buts</th><th>7 m</th><th>Tirs</th><th>Réussite</th><th>Arrêts</th><th>Sanctions</th></tr></thead>
+    <tbody><tr><td>13/09/2026</td><td>J2</td><td class="l">🏠 <a class="lien" href="../rencontre/national/DAIKIN%20STARLIGUE/D1/DAIKIN%20STARLIGUE%202026-27-190529/SAISON%20REGULIERE/WAGRAIN_2026-09-13_nimes-usam-gard_vs_montpellier.html">MONTPELLIER</a><br><small style="color:var(--muted)">DAIKIN STARLIGUE 2026-27 · DAIKIN STARLIGUE 2026-27</small></td><td><span class="res D" title="Défaite">D</span></td><td>33 - 38</td><td>5</td><td><b>4</b></td><td>—</td><td>4/4</td><td>100 %</td><td>—</td><td><span class="sanc s-2"></span></td></tr><tr><td>18/09/2026</td><td>J3</td><td class="l">✈️ <a class="lien" href="../rencontre/national/DAIKIN%20STARLIGUE/D1/DAIKIN%20STARLIGUE%202026-27-190529/SAISON%20REGULIERE/WAGRAIX_2026-09-18_saran-loiret_vs_nimes-usam-gard.html">SARAN LOIRET</a><br><small style="color:var(--muted)">DAIKIN STARLIGUE 2026-27 · DAIKIN STARLIGUE 2026-27</small></td><td><span class="res V" title="Victoire">V</span></td><td>32 - 31</td><td>5</td><td><b>5</b></td><td>—</td><td>5/5</td><td>100 %</td><td>—</td><td>—</td></tr><tr><td>25/09/2026</td><td>J4</td><td class="l">🏠 <a class="lien" href="../rencontre/national/DAIKIN%20STARLIGUE/D1/DAIKIN%20STARLIGUE%202026-27-190529/SAISON%20REGULIERE/WAGRAJF_2026-09-25_nimes-usam-gard_vs_dunkerque-grand-littoral.html">DUNKERQUE GRAND LITTORAL</a><br><small style="color:var(--muted)">DAIKIN STARLIGUE 2026-27 · DAIKIN STARLIGUE 2026-27</small></td><td><span class="res V" title="Victoire">V</span></td><td>27 - 25</td><td>5</td><td><b>—</b></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr><td>04/10/2026</td><td>J5</td><td class="l">🏠 <a class="lien" href="../rencontre/national/DAIKIN%20STARLIGUE/D1/DAIKIN%20STARLIGUE%202026-27-190529/SAISON%20REGULIERE/WAGRAJM_2026-10-04_nimes-usam-gard_vs_aix-provence-universite-club.html">AIX PROVENCE UNIVERSITE CLUB</a><br><small style="color:var(--muted)">DAIKIN STARLIGUE 2026-27 · DAIKIN STARLIGUE 2026-27</small></td><td><span class="res V" title="Victoire">V</span></td><td>35 - 33</td><td>5</td><td><b>2</b></td><td>—</td><td>2/2</td><td>100 %</td><td>—</td><td>—</td></tr><tr><td>10/10/2026</td><td>J6</td><td class="l">✈️ <a class="lien" href="../rencontre/national/DAIKIN%20STARLIGUE/D1/DAIKIN%20STARLIGUE%202026-27-190529/SAISON%20REGULIERE/WAGVVFA_2026-10-10_limoges_vs_nimes-usam-gard.html">LIMOGES</a><br><small style="color:var(--muted)">DAIKIN STARLIGUE 2026-27 · DAIKIN STARLIGUE 2026-27</small></td><td><span class="res D" title="Défaite">D</span></td><td>31 - 35</td><td>5</td><td><b>2</b></td><td>—</td><td>2/2</td><td>100 %</td><td>—</td><td><span class="sanc s-2"></span></td></tr></tbody></table></div>
+    <p class="legend-note">🏠 domicile · ✈️ extérieur · cliquez sur l'adversaire pour ouvrir la page du match lorsqu'elle a été générée.</p>
+  </div>
+</div></main>
+<footer>Généré le 14/10/2026 à 15h21 à partir de 5 feuille(s) de match.</footer>
+
+<script id="player-data" type="application/json">{"gardien": false, "total_arrets": 0, "matchs": [{"court": "13/09 MONTPELLIER", "date": "13/09/2026", "adversaire": "MONTPELLIER", "dom": true, "score": "33-38", "resultat_libelle": "Défaite", "buts": 4, "arrets": 0, "tirs": 4, "competition": "DAIKIN STARLIGUE 2026-27", "journee": 2}, {"court": "18/09 SARAN LOIRET", "date": "18/09/2026", "adversaire": "SARAN LOIRET", "dom": false, "score": "32-31", "resultat_libelle": "Victoire", "buts": 5, "arrets": 0, "tirs": 5, "competition": "DAIKIN STARLIGUE 2026-27", "journee": 3}, {"court": "25/09 DUNKERQUE GRAN", "date": "25/09/2026", "adversaire": "DUNKERQUE GRAND LITTORAL", "dom": true, "score": "27-25", "resultat_libelle": "Victoire", "buts": 0, "arrets": 0, "tirs": 0, "competition": "DAIKIN STARLIGUE 2026-27", "journee": 4}, {"court": "04/10 AIX PROVENCE U", "date": "04/10/2026", "adversaire": "AIX PROVENCE UNIVERSITE CLUB", "dom": true, "score": "35-33", "resultat_libelle": "Victoire", "buts": 2, "arrets": 0, "tirs": 2, "competition": "DAIKIN STARLIGUE 2026-27", "journee": 5}, {"court": "10/10 LIMOGES", "date": "10/10/2026", "adversaire": "LIMOGES", "dom": false, "score": "31-35", "resultat_libelle": "Défaite", "buts": 2, "arrets": 0, "tirs": 2, "competition": "DAIKIN STARLIGUE 2026-27", "journee": 6}], "tranches": [{"label": "0-5'", "buts": 0, "arrets": 0}, {"label": "5-10'", "buts": 0, "arrets": 0}, {"label": "10-15'", "buts": 0, "arrets": 0}, {"label": "15-20'", "buts": 3, "arrets": 0}, {"label": "20-25'", "buts": 1, "arrets": 0}, {"label": "25-30'", "buts": 0, "arrets": 0}, {"label": "30-35'", "buts": 0, "arrets": 0}, {"label": "35-40'", "buts": 1, "arrets": 0}, {"label": "40-45'", "buts": 0, "arrets": 0}, {"label": "45-50'", "buts": 2, "arrets": 0}, {"label": "50-55'", "buts": 3, "arrets": 0}, {"label": "55-60'", "buts": 3, "arrets": 0}], "tirs": [13, 0, 0, 0]}</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script>
+const D = JSON.parse(document.getElementById('player-data').textContent);
+const css = getComputedStyle(document.documentElement);
+const C = {r: css.getPropertyValue('--r').trim(), v: css.getPropertyValue('--v').trim()};
+const grid = {color: '#eef2f7'};
+const tip = {backgroundColor: '#0f172a', padding: 12, titleFont: {size: 13}, bodyFont: {size: 12}};
+
+const principal = D.gardien ? 'arrets' : 'buts';
+let cumul = 0;
+const moyenne = D.matchs.map((m, i) => { cumul += m[principal]; return +(cumul / (i + 1)).toFixed(2); });
+const ds = [{type: 'bar', label: 'Buts', data: D.matchs.map(m => m.buts), backgroundColor: C.r, borderRadius: 6, order: 2}];
+if (D.total_arrets > 0) ds.push({type: 'bar', label: 'Arrêts', data: D.matchs.map(m => m.arrets), backgroundColor: C.v, borderRadius: 6, order: 2});
+ds.push({type: 'line', label: 'Moyenne cumulée (' + (D.gardien ? 'arrêts' : 'buts') + ')', data: moyenne,
+  borderColor: '#0f172a', backgroundColor: '#0f172a', borderDash: [6, 4], pointRadius: 3, tension: .25, order: 1});
+new Chart(document.getElementById('chart-matchs'), {
+  data: {labels: D.matchs.map(m => m.court), datasets: ds},
+  options: {responsive: true, maintainAspectRatio: false, interaction: {mode: 'index', intersect: false},
+    scales: {x: {grid: {display: false}}, y: {beginAtZero: true, ticks: {precision: 0}, grid}},
+    plugins: {legend: {position: 'top', labels: {usePointStyle: true}}, tooltip: Object.assign({}, tip, {
+      callbacks: {
+        label: it => it.dataset.label + ' : ' + it.raw.toLocaleString('fr-FR', {maximumFractionDigits: 1}),
+        title: it => { const m = D.matchs[it[0].dataIndex]; return m.date + ' · ' + (m.dom ? 'vs ' : '@ ') + m.adversaire; },
+        footer: it => { const m = D.matchs[it[0].dataIndex];
+          return ['Score : ' + m.score + ' (' + m.resultat_libelle + ')',
+                  'Tirs : ' + m.buts + '/' + m.tirs + (m.tirs ? ' (' + Math.round(100 * m.buts / m.tirs) + ' %)' : ''),
+                  m.competition + ' · J' + m.journee]; }
+      }})}}
+});
+
+const tds = [{label: 'Buts', data: D.tranches.map(t => t.buts), backgroundColor: C.r, borderRadius: 4}];
+if (D.total_arrets > 0) tds.push({label: 'Arrêts', data: D.tranches.map(t => t.arrets), backgroundColor: C.v, borderRadius: 4});
+new Chart(document.getElementById('chart-tranches'), {
+  type: 'bar', data: {labels: D.tranches.map(t => t.label), datasets: tds},
+  options: {responsive: true, maintainAspectRatio: false,
+    scales: {x: {grid: {display: false}, title: {display: true, text: 'Tranche de temps de jeu'}},
+             y: {beginAtZero: true, ticks: {precision: 0}, grid}},
+    plugins: {legend: {position: 'top', labels: {usePointStyle: true}}, tooltip: tip}}
+});
+
+if (D.tirs.some(v => v > 0)) {
+  new Chart(document.getElementById('chart-tirs'), {
+    type: 'doughnut',
+    data: {labels: ['Buts en jeu', 'Buts sur 7 m', 'Tirs ratés (cadrés)', 'Tirs non cadrés'],
+      datasets: [{data: D.tirs, backgroundColor: [C.r, '#60a5fa', C.v, '#cbd5e1'], borderWidth: 2, borderColor: '#fff'}]},
+    options: {responsive: true, maintainAspectRatio: false, cutout: '62%',
+      plugins: {legend: {position: 'bottom', labels: {usePointStyle: true}}, tooltip: Object.assign({}, tip, {
+        callbacks: {label: it => { const t = it.dataset.data.reduce((a, b) => a + b, 0);
+          return it.label + ' : ' + it.raw + ' (' + Math.round(100 * it.raw / t) + ' %)'; }}})}}
+  });
+} else {
+  document.getElementById('chart-tirs').replaceWith(Object.assign(document.createElement('p'),
+    {className: 'empty', textContent: 'Aucun tir enregistré.'}));
+}
+</script>
+</body>
+</html>
