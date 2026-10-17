@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>USAM NG 1 59 - 16 ARAMON ROCHEFORT GH 1 — Statistiques</title>
+<style>
+:root{--r:#2563eb;--r-soft:#dbeafe;--v:#ea580c;--v-soft:#ffedd5;--bg:#f1f5f9;--card:#fff;
+--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--ok:#16a34a;}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+background:var(--bg);color:var(--ink);line-height:1.45}
+.hero{background:radial-gradient(1200px 400px at 10% -10%,#1e3a8a 0,transparent 60%),
+radial-gradient(900px 400px at 100% 0,#9a3412 0,transparent 55%),#0f172a;color:#fff;padding:28px 20px 90px}
+.wrap{max-width:1180px;margin:0 auto}
+.crumbs{display:flex;flex-wrap:wrap;gap:8px;font-size:.82rem}
+.chip{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);padding:3px 10px;border-radius:999px}
+.scoreboard{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;margin-top:26px}
+.team{display:flex;flex-direction:column;gap:4px}
+.team.r{text-align:right;align-items:flex-end}
+.team .label{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;opacity:.7}
+.team .name{font-size:1.7rem;font-weight:700}
+.team.r .name{border-right:5px solid var(--r);padding-right:12px}
+.team.v .name{border-left:5px solid var(--v);padding-left:12px}
+.score{font-size:3.6rem;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:.02em;
+background:rgba(255,255,255,.08);padding:6px 26px;border-radius:18px;white-space:nowrap}
+.score small{font-size:1.4rem;opacity:.6;margin:0 6px}
+.result{text-align:center;margin-top:8px;font-size:.9rem;opacity:.85}
+.meta{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 26px;margin-top:22px;font-size:.92rem;opacity:.92}
+.meta span b{font-weight:600}
+main{margin-top:-64px;padding:0 20px 40px}
+.grid{display:grid;gap:18px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr))}
+.card{min-width:0}.table-scroll{overflow-x:auto}
+.card{background:var(--card);border-radius:16px;box-shadow:0 1px 2px rgba(15,23,42,.06),0 8px 24px rgba(15,23,42,.06);padding:20px}
+.card h2{margin:0 0 14px;font-size:1.05rem;display:flex;align-items:center;gap:8px}
+.card h2 .tag{font-size:.7rem;font-weight:600;padding:2px 8px;border-radius:999px;color:#fff}
+.tag.r{background:var(--r)}.tag.v{background:var(--v)}
+.section-title{margin:30px 0 12px;font-size:1.25rem}
+.podium{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.podium li{display:grid;grid-template-columns:38px 1fr auto;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;background:#f8fafc}
+.medal{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:800;color:#fff}
+.m1{background:linear-gradient(135deg,#facc15,#ca8a04)}.m2{background:linear-gradient(135deg,#cbd5e1,#64748b)}
+.m3{background:linear-gradient(135deg,#fdba74,#b45309)}
+.podium .who b{display:block}.podium .who small{color:var(--muted)}
+.podium .goals{font-size:1.6rem;font-weight:800;font-variant-numeric:tabular-nums}
+.r .goals{color:var(--r)}.v .goals{color:var(--v)}
+.empty{color:var(--muted);font-style:italic}
+.kpi{display:flex;flex-direction:column;gap:6px}
+.kpi .k-title{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.kpi .k-val{font-size:2.2rem;font-weight:800;font-variant-numeric:tabular-nums}
+.kpi .k-sub{font-size:.85rem;color:var(--muted)}
+.duel{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+.duel:last-child{border-bottom:0}
+.duel .lab{text-align:center;font-size:.8rem;color:var(--muted);min-width:150px}
+.duel .vr{text-align:right;font-weight:700;color:var(--r)}.duel .vv{font-weight:700;color:var(--v)}
+.bar{height:6px;border-radius:6px;background:var(--line);overflow:hidden;margin-top:4px;display:flex}
+.bar i{display:block;height:100%}
+.chart-box{position:relative;height:420px}
+.chart-box.small{height:220px}
+.legend-note{font-size:.82rem;color:var(--muted);margin-top:8px}
+table{width:100%;border-collapse:collapse;font-size:.88rem;font-variant-numeric:tabular-nums}
+th,td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:center}
+th{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
+td.l,th.l{text-align:left}
+tr.off td{color:var(--muted)}
+.num{display:inline-grid;place-items:center;min-width:28px;height:24px;border-radius:7px;font-weight:700;font-size:.8rem;color:#fff}
+.r .num{background:var(--r)}.v .num{background:var(--v)}
+.badge{font-size:.66rem;font-weight:700;border-radius:5px;padding:1px 5px;margin-left:5px;vertical-align:middle}
+.b-cap{background:#0f172a;color:#fff}.b-gk{background:#e2e8f0;color:#334155}
+.sanc{display:inline-block;width:9px;height:12px;border-radius:2px;margin-right:2px;vertical-align:-1px}
+.s-y{background:#facc15}.s-2{background:#94a3b8}.s-r{background:#dc2626}
+.periods td,.periods th{text-align:center}
+.officials{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px 20px;font-size:.9rem}
+.officials div small{display:block;color:var(--muted);font-size:.75rem;text-transform:uppercase;letter-spacing:.06em}
+.warn{background:#fef3c7;color:#92400e;border-radius:12px;padding:10px 14px;font-size:.88rem;margin-bottom:18px}
+footer{text-align:center;color:var(--muted);font-size:.8rem;padding:10px 0 30px}
+@media (max-width:720px){.scoreboard{grid-template-columns:1fr}.team.r{text-align:left;align-items:flex-start}
+.team.r .name{border-right:0;border-left:5px solid var(--r);padding:0 0 0 12px}.score{justify-self:start;font-size:2.6rem}
+.chart-box{height:320px}}
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+  <div class="crumbs"><span class="chip">2026-2027</span><span class="chip">LIGUE 61</span><span class="chip">-15 ANS M 1ERE DIVISION</span><span class="chip">-15 ANS M D1 (1ERE PHASE)</span><span class="chip">POULE D</span><span class="chip">Journée 1</span><span class="chip">-15M</span></div>
+  <div class="scoreboard">
+    <div class="team r"><span class="label">Recevant</span><span class="name">USAM NG 1</span></div>
+    <div class="score">59<small>–</small>16</div>
+    <div class="team v"><span class="label">Visiteur</span><span class="name">ARAMON ROCHEFORT GH 1</span></div>
+  </div>
+  <div class="result">Victoire de USAM NG 1 (+43) · Jouée</div>
+  <div class="meta"><span>📅 Samedi 19 septembre 2026 à 13h00</span><span>📍 PABLO NERUDA, PLACE HUBERT ROUGER, 30000 NIMES</span><span>⏱️ <b>Format :</b> 3 × 20 min</span><span>👥 <b>Effectifs :</b> 11 / 11 joueurs</span><span>📄 <b>Feuille :</b> WAGRVPD</span></div>
+</div></header>
+
+<main><div class="wrap">
+  
+  <div class="grid g4">
+    <div class="card kpi r"><span class="k-title">Écart max. (recevant − visiteur)</span><span class="k-val" style="color:var(--r)">+44</span><span class="k-sub"><b>USAM NG 1</b> atteint à 47'32 (score 55 - 11)</span></div>
+    <div class="card kpi v"><span class="k-title">Écart max. (visiteur − recevant)</span><span class="k-val" style="color:var(--v)">+0</span><span class="k-sub"><b>ARAMON ROCHEFORT GH 1</b> n'a jamais mené au score</span></div>
+    <div class="card kpi"><span class="k-title">Plus longue série</span><span class="k-val" style="color:var(--r)">15-0</span><span class="k-sub"><b>USAM NG 1</b> de 33'35 à 44'03</span></div>
+    <div class="card kpi"><span class="k-title">Changements de leader</span><span class="k-val">0</span><span class="k-sub">75 buts inscrits, soit un toutes les 0 min 48 s</span></div>
+  </div>
+
+  <h2 class="section-title">🏆 Meilleurs buteurs</h2>
+  <div class="grid g2">
+    <div class="card r"><h2><span class="tag r">Recevant</span>USAM NG 1</h2><ol class="podium"><li><span class="medal m1">1</span><span class="who"><b>BORGES GOMES DE ANDRADE SILVA Raphael</b><small>n°65 · 0 sur 7 m · 14/15 tirs (93 %)</small></span><span class="goals">14</span></li><li><span class="medal m2">2</span><span class="who"><b>TYLINSKI Marin</b><small>n°77 · 0 sur 7 m · 10/11 tirs (91 %)</small></span><span class="goals">10</span></li><li><span class="medal m3">3</span><span class="who"><b>MANGIERI Thibault</b><small>n°83 · 0 sur 7 m · 7/9 tirs (78 %)</small></span><span class="goals">7</span></li></ol></div>
+    <div class="card v"><h2><span class="tag v">Visiteur</span>ARAMON ROCHEFORT GH 1</h2><ol class="podium"><li><span class="medal m1">1</span><span class="who"><b>FRADIN Many</b><small>n°12 · 0 sur 7 m · 3/3 tirs (100 %)</small></span><span class="goals">3</span></li><li><span class="medal m1">1</span><span class="who"><b>PRIAT Giulian</b><small>n°11 · 0 sur 7 m · 3/5 tirs (60 %)</small></span><span class="goals">3</span></li><li><span class="medal m1">1</span><span class="who"><b>PIALAT Tom</b><small>n°15 · 0 sur 7 m · 3/8 tirs (38 %)</small></span><span class="goals">3</span></li></ol></div>
+  </div>
+
+  <h2 class="section-title">📈 Évolution du score</h2>
+  <div class="card">
+    <div class="chart-box"><canvas id="chart-score" aria-label="Score cumulé en fonction du temps de jeu"></canvas></div>
+    <p class="legend-note">Survolez un point pour afficher le buteur et son total de buts à cet instant.
+    ◆ but sur jet de 7 m · <b>T</b> temps mort d'équipe · lignes pointillées : fins de période.</p>
+  </div>
+  <div class="card" style="margin-top:18px">
+    <h2>Écart au score</h2>
+    <div class="chart-box small"><canvas id="chart-ecart" aria-label="Écart au score en fonction du temps"></canvas></div>
+  </div>
+
+  <h2 class="section-title">⚖️ Face-à-face</h2>
+  <div class="grid g2">
+    <div class="card">
+      <h2>Statistiques d'équipe</h2>
+      <div class="duel" style="border-bottom:2px solid var(--line)"><span class="vr">USAM NG 1</span><span class="lab"></span><span class="vv">ARAMON ROCHEFORT GH 1</span></div>
+      <div class="duel"><span class="vr">59</span><span class="lab">Buts<div class="bar"><i style="width:78.7%;background:var(--r)"></i><i style="width:21.3%;background:var(--v)"></i></div></span><span class="vv">16</span></div><div class="duel"><span class="vr">80 % (59/74)</span><span class="lab">Réussite au tir</span><span class="vv">40 % (16/40)</span></div><div class="duel"><span class="vr">0</span><span class="lab">Buts sur jet de 7 m<div class="bar"><i style="width:0.0%;background:var(--r)"></i><i style="width:100.0%;background:var(--v)"></i></div></span><span class="vv">2</span></div><div class="duel"><span class="vr">17</span><span class="lab">Arrêts des gardiens<div class="bar"><i style="width:60.7%;background:var(--r)"></i><i style="width:39.3%;background:var(--v)"></i></div></span><span class="vv">11</span></div><div class="duel"><span class="vr">15 buts</span><span class="lab">Plus longue série<div class="bar"><i style="width:88.2%;background:var(--r)"></i><i style="width:11.8%;background:var(--v)"></i></div></span><span class="vv">2 buts</span></div><div class="duel"><span class="vr">59 min 19 s</span><span class="lab">Temps passé en tête<div class="bar"><i style="width:100.0%;background:var(--r)"></i><i style="width:0.0%;background:var(--v)"></i></div></span><span class="vv">0 min</span></div><div class="duel"><span class="vr">1</span><span class="lab">Avertissements</span><span class="vv">0</span></div><div class="duel"><span class="vr">3</span><span class="lab">Exclusions 2 min<div class="bar"><i style="width:60.0%;background:var(--r)"></i><i style="width:40.0%;background:var(--v)"></i></div></span><span class="vv">2</span></div><div class="duel"><span class="vr">0</span><span class="lab">Disqualifications</span><span class="vv">0</span></div><div class="duel"><span class="vr">28&#x27;48, 44&#x27;30, 46&#x27;16</span><span class="lab">Temps morts</span><span class="vv">04&#x27;18, 34&#x27;14, 51&#x27;07</span></div>
+    </div>
+    <div class="card">
+      <h2>Score par période</h2>
+      <table class="periods"><thead><tr><th class="l">Période</th><th>USAM NG 1</th><th>ARAMON ROCHEFORT GH 1</th><th>Cumul</th></tr></thead>
+      <tbody><tr><td class="l">Période 1</td><td style="color:var(--r);font-weight:700">24</td><td style="color:var(--v);font-weight:700">3</td><td>24 - 3</td></tr><tr><td class="l">Période 2</td><td style="color:var(--r);font-weight:700">19</td><td style="color:var(--v);font-weight:700">7</td><td>43 - 10</td></tr><tr><td class="l">Période 3</td><td style="color:var(--r);font-weight:700">16</td><td style="color:var(--v);font-weight:700">6</td><td>59 - 16</td></tr></tbody></table>
+      <h2 style="margin-top:22px">Officiels de la rencontre</h2>
+      <div class="officials"><div><small>Juge-arbitre 1</small>CHARRIER Florian</div><div><small>Juge-arbitre 2</small>VIERNE Enzo</div><div><small>Chronométreur</small>DENAES Sebastien</div><div><small>Accompagnateur de juges-arbitres</small>GRAS Alain</div><div><small>Responsable de salle</small>GALIEN Carine</div><div><small>Secrétaire</small>DAGBERT Jonathan</div></div>
+    </div>
+  </div>
+
+  <h2 class="section-title">👥 Compositions et statistiques individuelles</h2>
+  <div class="grid g2">
+    <div class="card r"><h2><span class="tag r">Recevant</span>USAM NG 1</h2><div class="table-scroll"><table><thead><tr><th>N°</th><th class="l">Joueur</th><th>Buts</th><th>7 m</th><th>Tirs</th><th>Réussite</th><th>Arrêts</th><th>Sanctions</th></tr></thead><tbody><tr class=""><td><span class="num">31</span></td><td class="l">GALIEN Alan</td><td><b>4</b></td><td>—</td><td>4/4</td><td>100 %</td><td>—</td><td>—</td></tr><tr class=""><td><span class="num">42</span></td><td class="l">MEDINA CHEVALIER Gaston</td><td><b>6</b></td><td>—</td><td>6/7</td><td>86 %</td><td>—</td><td><span class="sanc s-2"></span></td></tr><tr class=""><td><span class="num">48</span></td><td class="l">VIELZEUF Baptiste</td><td><b>5</b></td><td>—</td><td>5/9</td><td>56 %</td><td>—</td><td><span class="sanc s-2"></span></td></tr><tr class=""><td><span class="num">50</span></td><td class="l">CLOUX Mael</td><td><b>2</b></td><td>—</td><td>2/5</td><td>40 %</td><td>—</td><td>—</td></tr><tr class=""><td><span class="num">59</span></td><td class="l">DENAES Julien<span class="badge b-cap">C</span></td><td><b>5</b></td><td>—</td><td>5/5</td><td>100 %</td><td>—</td><td><span class="sanc s-y"></span></td></tr><tr class=""><td><span class="num">64</span></td><td class="l">GIROIRE Imanol</td><td><b>6</b></td><td>—</td><td>6/9</td><td>67 %</td><td>—</td><td>—</td></tr><tr class=""><td><span class="num">65</span></td><td class="l">BORGES GOMES DE ANDRADE SILVA Raphael</td><td><b>14</b></td><td>—</td><td>14/15</td><td>93 %</td><td>—</td><td><span class="sanc s-2"></span></td></tr><tr class="off"><td><span class="num">74</span></td><td class="l">ABRIC Tom</td><td><b>—</b></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr class=""><td><span class="num">77</span></td><td class="l">TYLINSKI Marin</td><td><b>10</b></td><td>—</td><td>10/11</td><td>91 %</td><td>—</td><td>—</td></tr><tr class=""><td><span class="num">83</span></td><td class="l">MANGIERI Thibault</td><td><b>7</b></td><td>—</td><td>7/9</td><td>78 %</td><td>—</td><td>—</td></tr><tr class=""><td><span class="num">94</span></td><td class="l">CARMINATI Lois<span class="badge b-gk">GB</span></td><td><b>—</b></td><td>—</td><td>—</td><td>—</td><td>17</td><td>—</td></tr></tbody></table></div><p class="legend-note">Officiels : JEAN Denis <small>(Officiel responsable A)</small> · REBICHON Julien <small>(Officiel B)</small> · ROUCAYROL Benoit <small>(Officiel C)</small> · VIELZEUF Arnaud <small>(Officiel D)</small></p></div>
+    <div class="card v"><h2><span class="tag v">Visiteur</span>ARAMON ROCHEFORT GH 1</h2><div class="table-scroll"><table><thead><tr><th>N°</th><th class="l">Joueur</th><th>Buts</th><th>7 m</th><th>Tirs</th><th>Réussite</th><th>Arrêts</th><th>Sanctions</th></tr></thead><tbody><tr class=""><td><span class="num">1</span></td><td class="l">JUAN Enzo<span class="badge b-gk">GB</span></td><td><b>—</b></td><td>—</td><td>—</td><td>—</td><td>11</td><td>—</td></tr><tr class=""><td><span class="num">6</span></td><td class="l">LECUCQ Martin</td><td><b>—</b></td><td>—</td><td>0/1</td><td>0 %</td><td>—</td><td>—</td></tr><tr class=""><td><span class="num">7</span></td><td class="l">GOMAR Pablo</td><td><b>1</b></td><td>1</td><td>1/3</td><td>33 %</td><td>—</td><td>—</td></tr><tr class=""><td><span class="num">8</span></td><td class="l">DAGBERT Tom</td><td><b>2</b></td><td>—</td><td>2/6</td><td>33 %</td><td>—</td><td><span class="sanc s-2"></span><span class="sanc s-2"></span></td></tr><tr class=""><td><span class="num">10</span></td><td class="l">GUEROULT Lucien</td><td><b>2</b></td><td>1</td><td>2/4</td><td>50 %</td><td>—</td><td>—</td></tr><tr class=""><td><span class="num">11</span></td><td class="l">PRIAT Giulian</td><td><b>3</b></td><td>—</td><td>3/5</td><td>60 %</td><td>—</td><td>—</td></tr><tr class=""><td><span class="num">12</span></td><td class="l">FRADIN Many</td><td><b>3</b></td><td>—</td><td>3/3</td><td>100 %</td><td>—</td><td>—</td></tr><tr class=""><td><span class="num">13</span></td><td class="l">VITRY Axel</td><td><b>1</b></td><td>—</td><td>1/8</td><td>12 %</td><td>—</td><td>—</td></tr><tr class=""><td><span class="num">14</span></td><td class="l">ALMERAS Gabin</td><td><b>1</b></td><td>—</td><td>1/2</td><td>50 %</td><td>—</td><td>—</td></tr><tr class=""><td><span class="num">15</span></td><td class="l">PIALAT Tom<span class="badge b-cap">C</span></td><td><b>3</b></td><td>—</td><td>3/8</td><td>38 %</td><td>—</td><td>—</td></tr><tr class="off"><td><span class="num">65</span></td><td class="l">VALAT Enael</td><td><b>—</b></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr></tbody></table></div><p class="legend-note">Officiels : DEROUSSEAU Clement <small>(Officiel responsable A)</small> · DESENCLOS Adeline <small>(Officiel B)</small></p></div>
+  </div>
+</div></main>
+<footer>Généré le 17/10/2026 à 22h43 à partir de la feuille de match WAGRVPD.</footer>
+
+<script id="match-data" type="application/json">{"noms": {"R": "USAM NG 1", "V": "ARAMON ROCHEFORT GH 1"}, "score": [59, 16], "fin_match": 3600, "fins_periodes": [1200, 2400], "buts": [{"t": 41, "cote": "R", "periode": "P1", "joueur": "BORGES GOMES DE ANDRADE SILVA Raphael", "numero": 65, "n": 1, "jet7m": false, "sr": 1, "sv": 0}, {"t": 106, "cote": "R", "periode": "P1", "joueur": "BORGES GOMES DE ANDRADE SILVA Raphael", "numero": 65, "n": 2, "jet7m": false, "sr": 2, "sv": 0}, {"t": 132, "cote": "R", "periode": "P1", "joueur": "BORGES GOMES DE ANDRADE SILVA Raphael", "numero": 65, "n": 3, "jet7m": false, "sr": 3, "sv": 0}, {"t": 157, "cote": "R", "periode": "P1", "joueur": "GIROIRE Imanol", "numero": 64, "n": 1, "jet7m": false, "sr": 4, "sv": 0}, {"t": 184, "cote": "R", "periode": "P1", "joueur": "TYLINSKI Marin", "numero": 77, "n": 1, "jet7m": false, "sr": 5, "sv": 0}, {"t": 203, "cote": "R", "periode": "P1", "joueur": "GIROIRE Imanol", "numero": 64, "n": 2, "jet7m": false, "sr": 6, "sv": 0}, {"t": 219, "cote": "V", "periode": "P1", "joueur": "PRIAT Giulian", "numero": 11, "n": 1, "jet7m": false, "sr": 6, "sv": 1}, {"t": 256, "cote": "R", "periode": "P1", "joueur": "BORGES GOMES DE ANDRADE SILVA Raphael", "numero": 65, "n": 4, "jet7m": false, "sr": 7, "sv": 1}, {"t": 301, "cote": "R", "periode": "P1", "joueur": "GIROIRE Imanol", "numero": 64, "n": 3, "jet7m": false, "sr": 8, "sv": 1}, {"t": 339, "cote": "R", "periode": "P1", "joueur": "DENAES Julien", "numero": 59, "n": 1, "jet7m": false, "sr": 9, "sv": 1}, {"t": 355, "cote": "R", "periode": "P1", "joueur": "TYLINSKI Marin", "numero": 77, "n": 2, "jet7m": false, "sr": 10, "sv": 1}, {"t": 382, "cote": "R", "periode": "P1", "joueur": "VIELZEUF Baptiste", "numero": 48, "n": 1, "jet7m": false, "sr": 11, "sv": 1}, {"t": 409, "cote": "R", "periode": "P1", "joueur": "DENAES Julien", "numero": 59, "n": 2, "jet7m": false, "sr": 12, "sv": 1}, {"t": 445, "cote": "R", "periode": "P1", "joueur": "GALIEN Alan", "numero": 31, "n": 1, "jet7m": false, "sr": 13, "sv": 1}, {"t": 528, "cote": "R", "periode": "P1", "joueur": "MEDINA CHEVALIER Gaston", "numero": 42, "n": 1, "jet7m": false, "sr": 14, "sv": 1}, {"t": 559, "cote": "V", "periode": "P1", "joueur": "DAGBERT Tom", "numero": 8, "n": 1, "jet7m": false, "sr": 14, "sv": 2}, {"t": 596, "cote": "R", "periode": "P1", "joueur": "VIELZEUF Baptiste", "numero": 48, "n": 2, "jet7m": false, "sr": 15, "sv": 2}, {"t": 658, "cote": "R", "periode": "P1", "joueur": "CLOUX Mael", "numero": 50, "n": 1, "jet7m": false, "sr": 16, "sv": 2}, {"t": 735, "cote": "R", "periode": "P1", "joueur": "DENAES Julien", "numero": 59, "n": 3, "jet7m": false, "sr": 17, "sv": 2}, {"t": 790, "cote": "R", "periode": "P1", "joueur": "GALIEN Alan", "numero": 31, "n": 2, "jet7m": false, "sr": 18, "sv": 2}, {"t": 844, "cote": "R", "periode": "P1", "joueur": "BORGES GOMES DE ANDRADE SILVA Raphael", "numero": 65, "n": 5, "jet7m": false, "sr": 19, "sv": 2}, {"t": 869, "cote": "R", "periode": "P1", "joueur": "BORGES GOMES DE ANDRADE SILVA Raphael", "numero": 65, "n": 6, "jet7m": false, "sr": 20, "sv": 2}, {"t": 890, "cote": "R", "periode": "P1", "joueur": "MEDINA CHEVALIER Gaston", "numero": 42, "n": 2, "jet7m": false, "sr": 21, "sv": 2}, {"t": 923, "cote": "R", "periode": "P1", "joueur": "MEDINA CHEVALIER Gaston", "numero": 42, "n": 3, "jet7m": false, "sr": 22, "sv": 2}, {"t": 955, "cote": "V", "periode": "P1", "joueur": "FRADIN Many", "numero": 12, "n": 1, "jet7m": false, "sr": 22, "sv": 3}, {"t": 995, "cote": "R", "periode": "P1", "joueur": "BORGES GOMES DE ANDRADE SILVA Raphael", "numero": 65, "n": 7, "jet7m": false, "sr": 23, "sv": 3}, {"t": 1035, "cote": "R", "periode": "P1", "joueur": "BORGES GOMES DE ANDRADE SILVA Raphael", "numero": 65, "n": 8, "jet7m": false, "sr": 24, "sv": 3}, {"t": 1127, "cote": "R", "periode": "P2", "joueur": "BORGES GOMES DE ANDRADE SILVA Raphael", "numero": 65, "n": 9, "jet7m": false, "sr": 25, "sv": 3}, {"t": 1178, "cote": "V", "periode": "P2", "joueur": "PIALAT Tom", "numero": 15, "n": 1, "jet7m": false, "sr": 25, "sv": 4}, {"t": 1196, "cote": "R", "periode": "P2", "joueur": "VIELZEUF Baptiste", "numero": 48, "n": 3, "jet7m": false, "sr": 26, "sv": 4}, {"t": 1224, "cote": "R", "periode": "P2", "joueur": "MANGIERI Thibault", "numero": 83, "n": 1, "jet7m": false, "sr": 27, "sv": 4}, {"t": 1287, "cote": "V", "periode": "P2", "joueur": "PIALAT Tom", "numero": 15, "n": 2, "jet7m": false, "sr": 27, "sv": 5}, {"t": 1392, "cote": "R", "periode": "P2", "joueur": "MANGIERI Thibault", "numero": 83, "n": 2, "jet7m": false, "sr": 28, "sv": 5}, {"t": 1427, "cote": "R", "periode": "P2", "joueur": "VIELZEUF Baptiste", "numero": 48, "n": 4, "jet7m": false, "sr": 29, "sv": 5}, {"t": 1476, "cote": "V", "periode": "P2", "joueur": "VITRY Axel", "numero": 13, "n": 1, "jet7m": false, "sr": 29, "sv": 6}, {"t": 1546, "cote": "R", "periode": "P2", "joueur": "MANGIERI Thibault", "numero": 83, "n": 3, "jet7m": false, "sr": 30, "sv": 6}, {"t": 1571, "cote": "V", "periode": "P2", "joueur": "PRIAT Giulian", "numero": 11, "n": 2, "jet7m": false, "sr": 30, "sv": 7}, {"t": 1589, "cote": "R", "periode": "P2", "joueur": "GIROIRE Imanol", "numero": 64, "n": 4, "jet7m": false, "sr": 31, "sv": 7}, {"t": 1635, "cote": "R", "periode": "P2", "joueur": "BORGES GOMES DE ANDRADE SILVA Raphael", "numero": 65, "n": 10, "jet7m": false, "sr": 32, "sv": 7}, {"t": 1688, "cote": "R", "periode": "P2", "joueur": "GIROIRE Imanol", "numero": 64, "n": 5, "jet7m": false, "sr": 33, "sv": 7}, {"t": 1771, "cote": "V", "periode": "P2", "joueur": "GUEROULT Lucien", "numero": 10, "n": 1, "jet7m": false, "sr": 33, "sv": 8}, {"t": 1796, "cote": "R", "periode": "P2", "joueur": "VIELZEUF Baptiste", "numero": 48, "n": 5, "jet7m": false, "sr": 34, "sv": 8}, {"t": 1832, "cote": "V", "periode": "P2", "joueur": "GOMAR Pablo", "numero": 7, "n": 1, "jet7m": true, "sr": 34, "sv": 9}, {"t": 1848, "cote": "R", "periode": "P2", "joueur": "DENAES Julien", "numero": 59, "n": 4, "jet7m": false, "sr": 35, "sv": 9}, {"t": 1898, "cote": "R", "periode": "P2", "joueur": "TYLINSKI Marin", "numero": 77, "n": 3, "jet7m": false, "sr": 36, "sv": 9}, {"t": 1958, "cote": "V", "periode": "P2", "joueur": "GUEROULT Lucien", "numero": 10, "n": 2, "jet7m": true, "sr": 36, "sv": 10}, {"t": 2015, "cote": "R", "periode": "P2", "joueur": "MANGIERI Thibault", "numero": 83, "n": 4, "jet7m": false, "sr": 37, "sv": 10}, {"t": 2039, "cote": "R", "periode": "P2", "joueur": "MEDINA CHEVALIER Gaston", "numero": 42, "n": 4, "jet7m": false, "sr": 38, "sv": 10}, {"t": 2088, "cote": "R", "periode": "P2", "joueur": "MANGIERI Thibault", "numero": 83, "n": 5, "jet7m": false, "sr": 39, "sv": 10}, {"t": 2110, "cote": "R", "periode": "P2", "joueur": "MANGIERI Thibault", "numero": 83, "n": 6, "jet7m": false, "sr": 40, "sv": 10}, {"t": 2160, "cote": "R", "periode": "P2", "joueur": "MANGIERI Thibault", "numero": 83, "n": 7, "jet7m": false, "sr": 41, "sv": 10}, {"t": 2160, "cote": "R", "periode": "P2", "joueur": "MEDINA CHEVALIER Gaston", "numero": 42, "n": 5, "jet7m": false, "sr": 42, "sv": 10}, {"t": 2160, "cote": "R", "periode": "P2", "joueur": "TYLINSKI Marin", "numero": 77, "n": 4, "jet7m": false, "sr": 43, "sv": 10}, {"t": 2200, "cote": "R", "periode": "P3", "joueur": "TYLINSKI Marin", "numero": 77, "n": 5, "jet7m": false, "sr": 44, "sv": 10}, {"t": 2234, "cote": "R", "periode": "P3", "joueur": "GALIEN Alan", "numero": 31, "n": 3, "jet7m": false, "sr": 45, "sv": 10}, {"t": 2351, "cote": "R", "periode": "P3", "joueur": "DENAES Julien", "numero": 59, "n": 5, "jet7m": false, "sr": 46, "sv": 10}, {"t": 2388, "cote": "R", "periode": "P3", "joueur": "TYLINSKI Marin", "numero": 77, "n": 6, "jet7m": false, "sr": 47, "sv": 10}, {"t": 2465, "cote": "R", "periode": "P3", "joueur": "GIROIRE Imanol", "numero": 64, "n": 6, "jet7m": false, "sr": 48, "sv": 10}, {"t": 2513, "cote": "R", "periode": "P3", "joueur": "BORGES GOMES DE ANDRADE SILVA Raphael", "numero": 65, "n": 11, "jet7m": false, "sr": 49, "sv": 10}, {"t": 2583, "cote": "R", "periode": "P3", "joueur": "MEDINA CHEVALIER Gaston", "numero": 42, "n": 6, "jet7m": false, "sr": 50, "sv": 10}, {"t": 2643, "cote": "R", "periode": "P3", "joueur": "BORGES GOMES DE ANDRADE SILVA Raphael", "numero": 65, "n": 12, "jet7m": false, "sr": 51, "sv": 10}, {"t": 2669, "cote": "V", "periode": "P3", "joueur": "ALMERAS Gabin", "numero": 14, "n": 1, "jet7m": false, "sr": 51, "sv": 11}, {"t": 2718, "cote": "R", "periode": "P3", "joueur": "BORGES GOMES DE ANDRADE SILVA Raphael", "numero": 65, "n": 13, "jet7m": false, "sr": 52, "sv": 11}, {"t": 2791, "cote": "R", "periode": "P3", "joueur": "TYLINSKI Marin", "numero": 77, "n": 7, "jet7m": false, "sr": 53, "sv": 11}, {"t": 2831, "cote": "R", "periode": "P3", "joueur": "TYLINSKI Marin", "numero": 77, "n": 8, "jet7m": false, "sr": 54, "sv": 11}, {"t": 2852, "cote": "R", "periode": "P3", "joueur": "BORGES GOMES DE ANDRADE SILVA Raphael", "numero": 65, "n": 14, "jet7m": false, "sr": 55, "sv": 11}, {"t": 2890, "cote": "V", "periode": "P3", "joueur": "FRADIN Many", "numero": 12, "n": 2, "jet7m": false, "sr": 55, "sv": 12}, {"t": 2900, "cote": "R", "periode": "P3", "joueur": "TYLINSKI Marin", "numero": 77, "n": 9, "jet7m": false, "sr": 56, "sv": 12}, {"t": 2914, "cote": "V", "periode": "P3", "joueur": "FRADIN Many", "numero": 12, "n": 3, "jet7m": false, "sr": 56, "sv": 13}, {"t": 2995, "cote": "R", "periode": "P3", "joueur": "CLOUX Mael", "numero": 50, "n": 2, "jet7m": false, "sr": 57, "sv": 13}, {"t": 3024, "cote": "V", "periode": "P3", "joueur": "PRIAT Giulian", "numero": 11, "n": 3, "jet7m": false, "sr": 57, "sv": 14}, {"t": 3056, "cote": "R", "periode": "P3", "joueur": "TYLINSKI Marin", "numero": 77, "n": 10, "jet7m": false, "sr": 58, "sv": 14}, {"t": 3099, "cote": "V", "periode": "P3", "joueur": "PIALAT Tom", "numero": 15, "n": 3, "jet7m": false, "sr": 58, "sv": 15}, {"t": 3154, "cote": "V", "periode": "P3", "joueur": "DAGBERT Tom", "numero": 8, "n": 2, "jet7m": false, "sr": 58, "sv": 16}, {"t": 3235, "cote": "R", "periode": "P3", "joueur": "GALIEN Alan", "numero": 31, "n": 4, "jet7m": false, "sr": 59, "sv": 16}], "temps_morts": [{"t": 1728, "cote": "R"}, {"t": 2670, "cote": "R"}, {"t": 2776, "cote": "R"}, {"t": 258, "cote": "V"}, {"t": 2054, "cote": "V"}, {"t": 3067, "cote": "V"}]}</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script>
+const D = JSON.parse(document.getElementById('match-data').textContent);
+const css = getComputedStyle(document.documentElement);
+const COL = {R: css.getPropertyValue('--r').trim(), V: css.getPropertyValue('--v').trim()};
+const fmt = s => { const m = Math.floor(s / 60), x = Math.round(s % 60); return String(m).padStart(2, '0') + "'" + String(x).padStart(2, '0'); };
+
+const markers = {
+  id: 'markers',
+  beforeDatasetsDraw(chart) {
+    const {ctx, chartArea: a, scales: {x}} = chart;
+    ctx.save();
+    D.fins_periodes.forEach((t, i) => {
+      const px = x.getPixelForValue(t);
+      ctx.strokeStyle = '#94a3b8'; ctx.setLineDash([5, 5]); ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(px, a.top); ctx.lineTo(px, a.bottom); ctx.stroke();
+      ctx.setLineDash([]); ctx.fillStyle = '#64748b'; ctx.font = '11px Segoe UI, sans-serif';
+      ctx.fillText('Fin P' + (i + 1), px + 4, a.top + 12);
+    });
+    D.temps_morts.forEach(tm => {
+      const px = x.getPixelForValue(tm.t);
+      ctx.fillStyle = COL[tm.cote]; ctx.globalAlpha = .9;
+      ctx.fillRect(px - 1, a.bottom - 16, 2, 16);
+      ctx.beginPath(); ctx.arc(px, a.bottom - 18, 5, 0, Math.PI * 2); ctx.fill();
+      ctx.globalAlpha = 1; ctx.fillStyle = '#fff'; ctx.font = 'bold 8px Segoe UI, sans-serif';
+      ctx.textAlign = 'center'; ctx.fillText('T', px, a.bottom - 15.5); ctx.textAlign = 'start';
+    });
+    ctx.restore();
+  }
+};
+
+function serie(cote) {
+  const pts = [{x: 0, y: 0, debut: true}];
+  D.buts.filter(b => b.cote === cote).forEach(b => pts.push({x: b.t, y: cote === 'R' ? b.sr : b.sv, but: b}));
+  pts.push({x: D.fin_match, y: cote === 'R' ? D.score[0] : D.score[1], fin: true});
+  return pts;
+}
+
+const xAxis = {type: 'linear', min: 0, max: D.fin_match,
+  ticks: {stepSize: 300, callback: v => fmt(v)}, title: {display: true, text: 'Temps de jeu'},
+  grid: {color: '#eef2f7'}};
+
+new Chart(document.getElementById('chart-score'), {
+  type: 'line',
+  data: {datasets: ['R', 'V'].map(c => ({
+    label: D.noms[c], data: serie(c), stepped: 'after', borderColor: COL[c],
+    backgroundColor: COL[c] + '22', fill: 'origin', borderWidth: 2.5, tension: 0,
+    pointRadius: ctx => ctx.raw && ctx.raw.but ? (ctx.raw.but.jet7m ? 5 : 3.5) : 0,
+    pointHoverRadius: ctx => ctx.raw && ctx.raw.but ? 8 : 0,
+    pointStyle: ctx => ctx.raw && ctx.raw.but && ctx.raw.but.jet7m ? 'rectRot' : 'circle',
+    pointBackgroundColor: '#fff', pointBorderColor: COL[c], pointBorderWidth: 2,
+  }))},
+  options: {
+    responsive: true, maintainAspectRatio: false, parsing: false,
+    interaction: {mode: 'nearest', intersect: true},
+    scales: {x: xAxis, y: {beginAtZero: true, title: {display: true, text: 'Score cumulé'},
+      ticks: {precision: 0}, grid: {color: '#eef2f7'}}},
+    plugins: {
+      legend: {position: 'top', labels: {usePointStyle: true}},
+      tooltip: {
+        filter: it => !!(it.raw && it.raw.but), backgroundColor: '#0f172a', padding: 12,
+        titleFont: {size: 13}, bodyFont: {size: 13}, displayColors: false,
+        callbacks: {
+          title: items => { const b = items[0].raw.but; return fmt(b.t) + ' · ' + b.periode + ' · ' + D.noms[b.cote]; },
+          label: it => {
+            const b = it.raw.but, num = b.numero !== null ? ' (n°' + b.numero + ')' : '';
+            return [b.joueur + num,
+              (b.n === 1 ? '1er but' : b.n + 'e but') + ' du joueur' + (b.jet7m ? ' — jet de 7 m' : ''),
+              'Score : ' + b.sr + ' - ' + b.sv];
+          }
+        }
+      }
+    }
+  },
+  plugins: [markers]
+});
+
+const ecarts = [{x: 0, y: 0}].concat(D.buts.map(b => ({x: b.t, y: b.sr - b.sv, but: b})));
+ecarts.push({x: D.fin_match, y: D.score[0] - D.score[1]});
+new Chart(document.getElementById('chart-ecart'), {
+  type: 'line',
+  data: {datasets: [{label: 'Écart (recevant − visiteur)', data: ecarts, stepped: 'after', borderWidth: 2,
+    pointRadius: 0, pointHoverRadius: 5, fill: {target: 'origin', above: COL.R + '33', below: COL.V + '33'},
+    segment: {borderColor: ctx => ctx.p0.parsed.y > 0 ? COL.R : ctx.p0.parsed.y < 0 ? COL.V : '#94a3b8'}}]},
+  options: {
+    responsive: true, maintainAspectRatio: false, parsing: false,
+    interaction: {mode: 'nearest', intersect: false, axis: 'x'},
+    scales: {x: xAxis, y: {ticks: {precision: 0, callback: v => v > 0 ? '+' + v : v}, grid: {color: '#eef2f7'}}},
+    plugins: {legend: {display: false}, tooltip: {
+      filter: it => !!it.raw.but, displayColors: false, backgroundColor: '#0f172a',
+      callbacks: {title: i => fmt(i[0].raw.x), label: it => {
+        const e = it.raw.y; return e === 0 ? 'Égalité' : (e > 0 ? D.noms.R : D.noms.V) + ' +' + Math.abs(e); }}}}
+  },
+  plugins: [markers]
+});
+</script>
+</body>
+</html>
