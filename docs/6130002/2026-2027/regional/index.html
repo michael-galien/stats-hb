@@ -146,7 +146,6 @@ background:color-mix(in srgb,var(--club-1) 7%,white)}
 .player-badges{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px}
 .player-badge.role{background:var(--r-soft);color:var(--r-text)}
 .player-badge.category{background:var(--v-soft);color:var(--v-text)}
-.player-substat{margin-top:6px;font-size:.74rem;color:var(--muted)}
 .player-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:auto;border-top:1px solid var(--line)}
 .player-stat{text-align:center;padding:10px 4px;min-width:0}
 .player-stat+.player-stat{border-left:1px solid var(--line)}
@@ -180,36 +179,11 @@ a.lien{color:var(--r-text)}
 
 </style></head><body class="site-index"><header class="handball-banner" style="--club-1:#046734;--club-2:#47AC4E;--club-on-1:#ffffff">
 <div class="banner-inner"><div class="banner-copy"><div class="banner-heading">
-<strong>USAM NIMES GARD NIMOISES</strong><span>Identifiant FFHandball : 6130002</span></div>
+<strong>USAM NIMES GARD</strong><span>Identifiant FFHandball : 6130002</span></div>
 <div class="banner-nav"><nav aria-label="Fil d’Ariane"><a class="lien" href="../../index.html">6130002</a> / <a class="lien" href="../index.html">2026-2027</a></nav></div></div>
 <div class="banner-art" aria-hidden="true">
 <img src="../../../assets/bandeau-handball.png" alt="" decoding="async">
 </div></div></header><main><div class="wrap"><h1>Regional</h1>
-<div class="search-tools"><label for="recherche">Rechercher joueurs, rencontres ou navigation</label><br>
-<input type="search" id="recherche" placeholder="Nom, licence, équipe, date…" autocomplete="off">
-<p id="search-status" class="search-status" aria-live="polite"></p></div>
-<details class="nav-group" name="sections"><summary>Catégories (5)</summary><div class="nav-cards"><a class="nav-card" href="-15F/index.html" data-search="-15F " style="--club-1:#046734;--club-2:#47AC4E"><strong>-15F</strong><small></small></a><a class="nav-card" href="-15M/index.html" data-search="-15M " style="--club-1:#046734;--club-2:#47AC4E"><strong>-15M</strong><small></small></a><a class="nav-card" href="-17M/index.html" data-search="-17M " style="--club-1:#046734;--club-2:#47AC4E"><strong>-17M</strong><small></small></a><a class="nav-card" href="-18F/index.html" data-search="-18F " style="--club-1:#046734;--club-2:#47AC4E"><strong>-18F</strong><small></small></a><a class="nav-card" href="-18M/index.html" data-search="-18M " style="--club-1:#046734;--club-2:#47AC4E"><strong>-18M</strong><small></small></a></div></details></div></main><script id="hb-export" type="application/json">{"version": 1, "saison": "2026-2027", "club": "6130002", "club_nom": "USAM NIMES GARD NIMOISES", "competition": "-15F", "competition_id": null, "strate": "regional", "regroupement": "categorie", "categorie_id": 737, "scope_id": "categorie:737", "competitions": ["-15 ANS F 1ERE DIVISION", "-15 ANS F 2E DIVISION"], "couleur_1": "#046734", "couleur_2": "#47AC4E", "couleur_3": "#CC5500", "exporte_le": "2026-10-19T10:48:55.318480+00:00", "kind": "strate", "identite": ["6130002", "2026-2027", "regional"], "label": "CHIRON Valentine", "licence": "6130002207930", "feuilles": 5, "moyenne": 6.4, "buts": 32, "arrets": 0, "gardien": false, "equipe": ["USAM NG 1"], "equipes": [{"id": "1539", "nom": "USAM NG 1"}], "personne_id": 24818, "categorie": ["-15F"], "groupe": "-15F"}</script>
-<script>
-const normaliser = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase('fr');
-const search = document.getElementById('recherche');
-if (search) search.addEventListener('input', () => {
-  const query = normaliser(search.value.trim());
-  const items = [...document.querySelectorAll('[data-search]')];
-  items.forEach(item => { item.hidden = !normaliser(item.dataset.search).includes(query); });
-  document.querySelectorAll('details').forEach(group => {
-    const visible = [...group.querySelectorAll('[data-search]')].some(item => !item.hidden);
-    group.hidden = !!query && !visible;
-  });
-  const status = document.getElementById('search-status');
-  if (status) {
-    const count = items.filter(item => !item.hidden).length;
-    status.textContent = query ? `${count} résultat${count > 1 ? 's' : ''}` : '';
-    if (query && count === 0) status.textContent = 'Aucun résultat.';
-  }
-});
-document.querySelectorAll('details').forEach(group => group.addEventListener('toggle', () => {
-  if (group.open) document.querySelectorAll('details').forEach(other => {
-    if (other !== group) other.open = false;
-  });
-}));
-</script></body></html>
+
+<div class="nav-cards nav-direct"><a class="nav-card" href="-15F/index.html" data-search="-15F " style="--club-1:#046734;--club-2:#47AC4E"><strong>-15F</strong><small></small></a><a class="nav-card" href="-15M/index.html" data-search="-15M " style="--club-1:#046734;--club-2:#47AC4E"><strong>-15M</strong><small></small></a><a class="nav-card" href="-17M/index.html" data-search="-17M " style="--club-1:#046734;--club-2:#47AC4E"><strong>-17M</strong><small></small></a><a class="nav-card" href="-18F/index.html" data-search="-18F " style="--club-1:#046734;--club-2:#47AC4E"><strong>-18F</strong><small></small></a><a class="nav-card" href="-18M/index.html" data-search="-18M " style="--club-1:#046734;--club-2:#47AC4E"><strong>-18M</strong><small></small></a></div></div></main><script id="hb-export" type="application/json">{"version": 1, "saison": "2026-2027", "club": "6130002", "club_nom": "USAM NIMES GARD", "competition": "-15F", "competition_id": null, "strate": "regional", "regroupement": "categorie", "categorie_id": 740, "scope_id": "categorie:740", "competitions": ["-15 ANS F 1ERE DIVISION", "-15 ANS F 2E DIVISION"], "couleur_1": "#046734", "couleur_2": "#47AC4E", "couleur_3": "#CC5500", "exporte_le": "2026-10-19T22:33:55.207940+00:00", "kind": "strate", "identite": ["6130002", "2026-2027", "regional"], "label": "CHIRON Valentine", "licence": "6130002207930", "feuilles": 5, "moyenne": 6.4, "buts": 32, "arrets": 0, "gardien": false, "equipe": ["USAM NG 1"], "equipes": [{"id": "1549", "nom": "USAM NG 1"}], "personne_id": 25020, "categorie": ["-15F"], "groupe": "-15F"}</script>
+</body></html>
