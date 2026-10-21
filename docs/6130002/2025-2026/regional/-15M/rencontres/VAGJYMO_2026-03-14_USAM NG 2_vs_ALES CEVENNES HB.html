@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>USAM NG 2 35 - 43 ALES CEVENNES HB — Statistiques</title>
+<style>
+:root{--r:#2563eb;--r-soft:#dbeafe;--v:#ea580c;--v-soft:#ffedd5;--bg:#f1f5f9;--card:#fff;
+--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--ok:#16a34a;}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+background:var(--bg);color:var(--ink);line-height:1.45}
+.hero{background:radial-gradient(1200px 400px at 10% -10%,#1e3a8a 0,transparent 60%),
+radial-gradient(900px 400px at 100% 0,#9a3412 0,transparent 55%),#0f172a;color:#fff;padding:28px 20px 90px}
+.wrap{max-width:1180px;margin:0 auto}
+.crumbs{display:flex;flex-wrap:wrap;gap:8px;font-size:.82rem}
+.chip{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);padding:3px 10px;border-radius:999px}
+.scoreboard{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;margin-top:26px}
+.team{display:flex;flex-direction:column;gap:4px}
+.team.r{text-align:right;align-items:flex-end}
+.team .label{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;opacity:.7}
+.team .name{font-size:1.7rem;font-weight:700}
+.team.r .name{border-right:5px solid var(--r);padding-right:12px}
+.team.v .name{border-left:5px solid var(--v);padding-left:12px}
+.score{display:flex;align-items:center;font-size:3.6rem;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:.02em;
+background:rgba(255,255,255,.08);padding:6px 18px;border-radius:18px;white-space:nowrap}
+.score-side{display:inline-block;padding:3px 9px;border-radius:8px;background:var(--r);color:#fff}
+.score-side.v{background:var(--v)}
+.score small{font-size:1.4rem;opacity:.6;margin:0 6px}
+.result{text-align:center;margin-top:8px;font-size:.9rem;opacity:.85}
+.meta{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 26px;margin-top:22px;font-size:.92rem;opacity:.92}
+.meta span b{font-weight:600}
+main{margin-top:-64px;padding:0 20px 40px}
+.grid{display:grid;gap:18px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr))}
+.card{min-width:0}.table-scroll{overflow-x:auto}
+.card{background:var(--card);border-radius:16px;box-shadow:0 1px 2px rgba(15,23,42,.06),0 8px 24px rgba(15,23,42,.06);padding:20px}
+.card h2{margin:0 0 14px;font-size:1.05rem;display:flex;align-items:center;gap:8px}
+.card h2 .tag{font-size:.7rem;font-weight:600;padding:2px 8px;border-radius:999px;color:#fff}
+.tag.r{background:var(--r)}.tag.v{background:var(--v)}
+.section-title{margin:30px 0 12px;font-size:1.25rem}
+.podium{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.podium li{display:grid;grid-template-columns:38px 1fr auto;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;background:#f8fafc}
+.medal{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:800;color:#fff}
+.m1{background:linear-gradient(135deg,#facc15,#ca8a04)}.m2{background:linear-gradient(135deg,#cbd5e1,#64748b)}
+.m3{background:linear-gradient(135deg,#fdba74,#b45309)}
+.podium .who b{display:block}.podium .who small{color:var(--muted)}
+.podium .goals{font-size:1.6rem;font-weight:800;font-variant-numeric:tabular-nums}
+.r .goals{color:var(--r)}.v .goals{color:var(--v)}
+.empty{color:var(--muted);font-style:italic}
+.kpi{display:flex;flex-direction:column;gap:6px}
+.kpi .k-title{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.kpi .k-val{font-size:2.2rem;font-weight:800;font-variant-numeric:tabular-nums}
+.kpi .k-sub{font-size:.85rem;color:var(--muted)}
+.duel{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+.duel:last-child{border-bottom:0}
+.duel .lab{text-align:center;font-size:.8rem;color:var(--muted);min-width:150px}
+.duel .vr{text-align:right;font-weight:700;color:var(--r)}.duel .vv{font-weight:700;color:var(--v)}
+.bar{height:6px;border-radius:6px;background:var(--line);overflow:hidden;margin-top:4px;display:flex}
+.bar i{display:block;height:100%}
+.chart-box{position:relative;height:420px}
+.chart-box.small{height:220px}
+.legend-note{font-size:.82rem;color:var(--muted);margin-top:8px}
+table{width:100%;border-collapse:collapse;font-size:.88rem;font-variant-numeric:tabular-nums}
+th,td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:center}
+th{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
+td.l,th.l{text-align:left}
+tr.off td{color:var(--muted)}
+.num{display:inline-grid;place-items:center;min-width:28px;height:24px;border-radius:7px;font-weight:700;font-size:.8rem;color:#fff}
+.r .num{background:var(--r)}.v .num{background:var(--v)}
+.badge{font-size:.66rem;font-weight:700;border-radius:5px;padding:1px 5px;margin-left:5px;vertical-align:middle}
+.b-cap{background:#0f172a;color:#fff}.b-gk{background:#e2e8f0;color:#334155}
+.sanc{display:inline-block;width:9px;height:12px;border-radius:2px;margin-right:2px;vertical-align:-1px}
+.s-y{background:#facc15}.s-2{background:#94a3b8}.s-r{background:#dc2626}
+.periods td,.periods th{text-align:center}
+.officials{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px 20px;font-size:.9rem}
+.officials div small{display:block;color:var(--muted);font-size:.75rem;text-transform:uppercase;letter-spacing:.06em}
+.warn{background:#fef3c7;color:#92400e;border-radius:12px;padding:10px 14px;font-size:.88rem;margin-bottom:18px}
+footer{text-align:center;color:var(--muted);font-size:.8rem;padding:10px 0 30px}
+@media (max-width:720px){.scoreboard{grid-template-columns:1fr}.team.r{text-align:left;align-items:flex-start}
+.team.r .name{border-right:0;border-left:5px solid var(--r);padding:0 0 0 12px}.score{justify-self:start;font-size:2.6rem}
+.chart-box{height:320px}}
+:root{--club-1:#046734;--club-2:#47AC4E;--club-on-1:#ffffff;--club-on-2:#0f172a;--r:#046734;--v:#b84c00;--r-soft:color-mix(in srgb,#046734 12%,white);--v-soft:color-mix(in srgb,#b84c00 12%,white);--r-text:#046734;--v-text:#b84c00}.tag.r{background:var(--r);color:#ffffff}.tag.v{background:var(--v);color:#ffffff}.r .goals,.duel .vr{color:var(--r-text)}.v .goals,.duel .vv{color:var(--v-text)}.team.r .name{border-color:var(--r)}.team.v .name{border-color:var(--v)}.score-side.r{color:#ffffff}.score-side.v{color:#ffffff}.r .num{background:var(--r);color:#ffffff}.v .num{background:var(--v);color:#ffffff}
+.hero{background:linear-gradient(120deg,var(--club-1) 65%,color-mix(in srgb,var(--club-1) 85%,var(--club-2)));color:var(--club-on-1);border-bottom:5px solid var(--club-2)}
+.handball-banner{position:relative;isolation:isolate;overflow:hidden;background:var(--club-1,#2563eb);color:var(--club-on-1,#fff);padding:14px 20px}
+.banner-inner{max-width:1180px;min-height:150px;margin:auto;display:flex;align-items:center;gap:20px}
+.banner-copy{position:relative;z-index:1;display:flex;flex-direction:column;gap:8px;min-width:0;max-width:75%;overflow-wrap:anywhere}
+.banner-art{position:absolute;inset:0;z-index:0;width:100%;height:100%;overflow:hidden}
+.banner-art img{display:block;width:100%;height:100%;object-fit:cover;object-position:right center}
+.banner-art:after{content:"";position:absolute;inset:0;background:linear-gradient(to right,var(--club-1),color-mix(in srgb,var(--club-1) 95%,transparent) 60%,transparent 100%);pointer-events:none}
+.banner-heading{display:flex;flex-direction:column;min-width:0}
+.banner-heading strong{font-size:1.05rem}.banner-heading span{font-size:.82rem;opacity:.92}
+.banner-nav{min-width:0}.banner-nav nav{padding:0;display:flex;flex-wrap:wrap;gap:5px}
+.handball-banner .banner-nav a{color:var(--club-on-1);text-decoration:underline;text-underline-offset:3px}
+.relation-links{padding-top:8px;overflow-wrap:anywhere}
+.nav-group{margin:18px 0;border:1px solid var(--line);border-radius:14px;background:var(--card);overflow:hidden}
+.nav-group summary{cursor:pointer;padding:15px 18px;font-weight:750}
+.nav-direct{grid-template-columns:1fr!important}
+.nav-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(310px,100%),1fr));gap:12px;padding:0 14px 14px}
+.nav-card{display:block;min-width:0;padding:15px;border-radius:12px;background:#fff;border:1px solid var(--line);
+border-top:4px solid var(--club-1,var(--r));box-shadow:0 3px 12px #0f172a0d;color:var(--ink);text-decoration:none}
+.nav-card:hover,.nav-card:focus-visible{outline:3px solid var(--club-2,var(--v));outline-offset:2px}
+.nav-card strong{display:block;font-size:1rem;overflow-wrap:anywhere}
+.nav-card small{display:block;color:var(--muted);margin-top:4px}
+.match-card{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:12px}
+.match-card .home{text-align:right}.match-card .away{text-align:left}
+.match-card .score-card{font-size:1.3rem;font-weight:850;font-variant-numeric:tabular-nums;white-space:nowrap;
+padding:6px 10px;border-radius:10px;background:var(--r-soft);color:var(--r-text)}
+.match-card .home:before,.match-card .away:before{display:inline-block;font-weight:800;font-size:.7rem;
+padding:2px 6px;border-radius:5px;margin:0 5px 3px 0}
+.match-card .home:before{content:"DOMICILE";background:var(--r-soft);color:var(--r-text)}
+.match-card .away:before{content:"EXTÉRIEUR";background:var(--v-soft);color:var(--v-text)}
+.player-card{border-left:5px solid var(--club-1,var(--r))}
+.player-card .metrics{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:8px;font-variant-numeric:tabular-nums}
+.player-card .metrics span{font-size:.85rem}.search-tools{margin:20px 0}
+.matches-list{display:grid;gap:5px;padding:10px}
+.match-row{display:grid;grid-template-columns:132px minmax(0,1fr) auto minmax(0,1fr) 20px;
+align-items:center;gap:12px;padding:12px 14px;border:0;border-radius:10px}
+.site-index main{margin-top:0;padding:24px 20px 40px}
+.match-row{color:var(--ink);text-decoration:none}
+.match-row:nth-child(even){background:#f4f7fb}
+.match-row:hover,.match-row:focus-visible{background:var(--r-soft);outline:2px solid var(--club-1);outline-offset:1px}
+.match-date{font-size:.82rem;color:#475569;line-height:1.4}
+.match-date strong,.match-date span{display:block}.match-date strong{color:var(--ink)}
+.match-home,.match-away{min-width:0;overflow-wrap:anywhere}
+.match-home{text-align:right}.match-away{text-align:left}
+.match-home.club-team,.match-away.club-team{color:var(--r-text);font-weight:800}
+.match-home:before,.match-away:before{font-size:.62rem;letter-spacing:.04em;color:var(--muted);font-weight:650}
+.match-home:before{content:"DOMICILE · "}.match-away:before{content:"EXTÉRIEUR · "}
+.score-pair{display:flex;align-items:center;gap:3px}
+.score-pill{min-width:34px;text-align:center;padding:6px 8px;border-radius:8px;background:#0f172a;color:#fff;
+font-size:1rem;font-weight:850;font-variant-numeric:tabular-nums}
+.score-pill.club-score{background:color-mix(in srgb,var(--club-1) 10%,white);color:var(--r-text)}
+.score-pill.club-score.club-loss{color:#b91c1c}
+.scoreboard .score-side.club-loss{color:#b91c1c;background:color-mix(in srgb,var(--club-1) 10%,white)}
+.score-unavailable{max-width:115px;text-align:center;color:var(--muted);font-size:.76rem}
+.match-chevron{color:var(--club-2);font-size:1.3rem;font-weight:900}
+.match-badges{grid-column:2/5;display:flex;flex-wrap:wrap;gap:5px}
+.match-badge,.player-badge{display:inline-block;border-radius:999px;padding:2px 8px;background:#eaf0f8;
+color:#334155;font-size:.69rem;font-weight:700}
+.players-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;padding:10px}
+.player-card{display:flex;flex-direction:column;min-width:0;overflow:hidden;padding:0;border:1px solid var(--line);
+border-left:5px solid var(--club-1,var(--r));border-top:0;border-radius:16px;background:#fff}
+.player-top{display:flex;flex:1;align-items:center;gap:12px;min-height:120px;padding:16px 14px;
+background:color-mix(in srgb,var(--club-1) 7%,white)}
+.jersey{flex:0 0 48px;width:48px;height:52px}.jersey text{font:700 15px system-ui,sans-serif}
+.player-ident{min-width:0}.player-name{display:block;font-size:1rem;line-height:1.25;overflow-wrap:anywhere}
+.player-teams{display:block;margin-top:4px;font-size:.78rem;color:var(--muted);overflow-wrap:anywhere}
+.player-badges{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px}
+.player-badge.role{background:var(--r-soft);color:var(--r-text)}
+.player-badge.category{background:var(--v-soft);color:var(--v-text)}
+.player-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:auto;border-top:1px solid var(--line)}
+.player-stat{text-align:center;padding:10px 4px;min-width:0}
+.player-stat+.player-stat{border-left:1px solid var(--line)}
+.player-stat strong{display:block;font-size:1.35rem;line-height:1.2;font-weight:850;font-variant-numeric:tabular-nums}
+.player-stat small{display:block;margin-top:4px;color:#475569;font-size:.65rem;font-weight:700;letter-spacing:.035em}
+a.lien{color:var(--r-text)}
+.teams-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:14px;padding:10px}
+.club-team-card{min-width:0;padding:16px;border-top:4px solid var(--club-1);border-radius:14px;background:#fff}
+.club-team-card h3{margin:0;font-size:1.05rem;overflow-wrap:anywhere}
+.club-team-card .team-competition{min-height:1.4em;margin:4px 0 12px;color:var(--muted);font-size:.82rem}
+.club-team-card .team-record{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;text-align:center}
+.club-team-card .team-record strong{display:block;font-size:1.12rem;font-variant-numeric:tabular-nums}
+.club-team-card .team-record small{display:block;color:var(--muted);font-size:.68rem;font-weight:700}
+.club-team-card .team-goals{margin-top:12px;padding-top:10px;border-top:1px solid var(--line);font-variant-numeric:tabular-nums}
+.club-team-card .team-notes{margin:8px 0 0;color:var(--muted);font-size:.78rem}
+.search-tools input{padding:12px 14px;max-width:100%;width:min(34rem,100%);border:1px solid #64748b;border-radius:8px;font:inherit}
+.search-status{min-height:1.5em;color:var(--muted)}[hidden]{display:none!important}
+@media(max-width:980px){.players-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:740px){.players-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.match-row{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr) 18px;gap:7px;padding:11px 9px}
+.match-date{grid-column:1/-1;display:flex;gap:8px;align-items:baseline}.match-home{grid-column:1;text-align:right}
+.score-pair,.score-unavailable{grid-column:2}.match-away{grid-column:3}.match-chevron{grid-column:4;grid-row:2}
+.match-badges{grid-column:1/-1}.match-home:before,.match-away:before{display:block}
+}
+@media(max-width:520px){.handball-banner{padding:12px}
+.banner-inner{min-height:110px;gap:10px}.banner-copy{max-width:85%}
+.players-grid{grid-template-columns:1fr}
+.match-row{font-size:.87rem}.score-pill{min-width:28px;padding:5px 6px;font-size:.9rem}
+.match-date{font-size:.75rem}.match-home:before,.match-away:before{font-size:.55rem}
+.nav-cards{grid-template-columns:1fr}}
+</style>
+</head>
+<body><header class="handball-banner" style="--club-1:#046734;--club-2:#47AC4E;--club-on-1:#ffffff">
+<div class="banner-inner"><div class="banner-copy"><div class="banner-heading">
+<strong>USAM NIMES GARD</strong><span>Identifiant FFHandball : 6130002</span></div>
+<div class="banner-nav"><nav aria-label="Fil d’Ariane"><a class="lien" href="../../../../index.html">6130002</a> / <a class="lien" href="../../../index.html">2025-2026</a> / <a class="lien" href="../../index.html">regional</a> / <a class="lien" href="../index.html">-15M</a></nav></div></div>
+<div class="banner-art" aria-hidden="true">
+<img src="../../../../../assets/bandeau-handball.png" alt="" decoding="async">
+</div></div></header><div class="wrap relation-links"><h2 class="section-title"><a class="lien" href="../../../../../fdm/2025-2026/regional/OCCITANIE/-15%20M/2E%20DIVISION/POULE%20D-179949/-15%20ANS%20M%20D2%20%282E%20PHASE%29/20260314_usam-ng-2_vs_ales-cevennes-hb-1_VAGJYMO.pdf"><span aria-hidden="true">&#128196;</span> Afficher la feuille de match</a></h2></div>
+<header class="hero"><div class="wrap">
+  <div class="crumbs"><span class="chip">2025-2026</span><span class="chip">LIGUE 61</span><span class="chip">-15 ANS M 2E DIVISION</span><span class="chip">-15 ANS M D2 (2E PHASE)</span><span class="chip">POULE D</span><span class="chip">Journée 10</span><span class="chip">-15M</span></div>
+  <p class="time-note">Axe limité au dernier événement horodaté (hors tirs au but) ; la fin réelle du match n’est pas renseignée.</p>
+  <div class="scoreboard">
+    <div class="team r"><span class="label">Recevant</span><span class="name">USAM NG 2</span></div>
+    <div class="score"><span class="score-side r club-loss" aria-label="Score du club, défaite : 35">35</span><small>–</small><span class="score-side v">43</span></div>
+    <div class="team v"><span class="label">Visiteur</span><span class="name">ALES CEVENNES HB</span></div>
+  </div>
+  <div class="result">Victoire de ALES CEVENNES HB (+8) · Jouée</div>
+  <div class="meta"><span>📅 Samedi 14 mars 2026 à 13h00</span><span>📍 6130 - PHILIPPE LAMOUR, CHEMIN DU PUITS DES ILES, 30000 NIMES</span><span>👥 <b>Effectifs :</b> 12 / 10 joueurs</span><span>📄 <b>Feuille :</b> VAGJYMO</span></div>
+</div></header>
+
+<main><div class="wrap">
+  
+  <div class="grid g4">
+    <div class="card kpi r"><span class="k-title">Écart max. (recevant − visiteur)</span><span class="k-val" style="color:var(--r)">+0</span><span class="k-sub"><b>USAM NG 2</b> n'a jamais mené au score</span></div>
+    <div class="card kpi v"><span class="k-title">Écart max. (visiteur − recevant)</span><span class="k-val" style="color:var(--v)">+8</span><span class="k-sub"><b>ALES CEVENNES HB</b> atteint à 49'06 (score 33 - 41)</span></div>
+    <div class="card kpi"><span class="k-title">Plus longue série</span><span class="k-val" style="color:var(--v)">4-0</span><span class="k-sub"><b>ALES CEVENNES HB</b> de 46'22 à 49'06</span></div>
+    <div class="card kpi"><span class="k-title">Changements de leader</span><span class="k-val">0</span><span class="k-sub">78 buts inscrits, soit un toutes les 0 min 41 s</span></div>
+  </div>
+
+  <h2 class="section-title">🏆 Meilleurs buteurs</h2>
+  <div class="grid g2">
+    <div class="card r"><h2><span class="tag r">Recevant</span>USAM NG 2</h2><ol class="podium"><li><span class="medal m1">1</span><span class="who"><b>GALIEN Alan</b><small>n°13 · 2 sur 7 m · 9/9 tirs (100 %)</small></span><span class="goals">9</span></li><li><span class="medal m2">2</span><span class="who"><b>JOYEUX Louis</b><small>n°11 · 0 sur 7 m · 6/6 tirs (100 %)</small></span><span class="goals">6</span></li><li><span class="medal m2">2</span><span class="who"><b>TOPORENKO Eliot</b><small>n°83 · 0 sur 7 m · 6/6 tirs (100 %)</small></span><span class="goals">6</span></li></ol></div>
+    <div class="card v"><h2><span class="tag v">Visiteur</span>ALES CEVENNES HB</h2><ol class="podium"><li><span class="medal m1">1</span><span class="who"><b>MATRAY Swann</b><small>n°13 · 0 sur 7 m · 10/10 tirs (100 %)</small></span><span class="goals">10</span></li><li><span class="medal m2">2</span><span class="who"><b>DURIES--TOMPS Abel</b><small>n°10 · 0 sur 7 m · 9/9 tirs (100 %)</small></span><span class="goals">9</span></li><li><span class="medal m3">3</span><span class="who"><b>CHAPEL Gabin</b><small>n°40 · 0 sur 7 m · 8/8 tirs (100 %)</small></span><span class="goals">8</span></li></ol></div>
+  </div>
+
+  <h2 class="section-title">📈 Évolution du score</h2>
+  <div class="card">
+    <div class="chart-box"><canvas id="chart-score" aria-label="Score cumulé en fonction du temps de jeu"></canvas></div>
+    <p class="legend-note">Déroulé observé uniquement, sans complément non horodaté.
+    Survolez un point pour afficher le buteur identifié et son total de buts à cet instant.
+    Traits pleins : cercle pour le recevant · carré pour le visiteur · ◆ but sur jet de 7 m ·
+    <b>T</b> temps mort d'équipe.</p>
+  </div>
+  <div class="card" style="margin-top:18px">
+    <h2>Écart au score</h2>
+    <div class="chart-box small"><canvas id="chart-ecart" aria-label="Écart au score en fonction du temps"></canvas></div>
+  </div>
+
+  <h2 class="section-title">⚖️ Face-à-face</h2>
+  <div class="grid g2">
+    <div class="card">
+      <h2>Statistiques d'équipe</h2>
+      <div class="duel" style="border-bottom:2px solid var(--line)"><span class="vr">USAM NG 2</span><span class="lab"></span><span class="vv">ALES CEVENNES HB</span></div>
+      <div class="duel"><span class="vr">35</span><span class="lab">Buts<div class="bar"><i style="width:44.9%;background:var(--r)"></i><i style="width:55.1%;background:var(--v)"></i></div></span><span class="vv">43</span></div><div class="duel"><span class="vr">100 % (35/35)</span><span class="lab">Réussite au tir</span><span class="vv">100 % (43/43)</span></div><div class="duel"><span class="vr">2</span><span class="lab">Buts sur jet de 7 m<div class="bar"><i style="width:100.0%;background:var(--r)"></i><i style="width:0.0%;background:var(--v)"></i></div></span><span class="vv">0</span></div><div class="duel"><span class="vr">0</span><span class="lab">Arrêts des gardiens</span><span class="vv">0</span></div><div class="duel"><span class="vr">2 buts</span><span class="lab">Plus longue série<div class="bar"><i style="width:33.3%;background:var(--r)"></i><i style="width:66.7%;background:var(--v)"></i></div></span><span class="vv">4 buts</span></div><div class="duel"><span class="vr">0 min</span><span class="lab">Temps passé en tête<div class="bar"><i style="width:0.0%;background:var(--r)"></i><i style="width:100.0%;background:var(--v)"></i></div></span><span class="vv">50 min 45 s</span></div><div class="duel"><span class="vr">0</span><span class="lab">Avertissements</span><span class="vv">0</span></div><div class="duel"><span class="vr">0</span><span class="lab">Exclusions 2 min<div class="bar"><i style="width:0.0%;background:var(--r)"></i><i style="width:100.0%;background:var(--v)"></i></div></span><span class="vv">3</span></div><div class="duel"><span class="vr">0</span><span class="lab">Disqualifications</span><span class="vv">0</span></div><div class="duel"><span class="vr">44&#x27;28, 51&#x27;50</span><span class="lab">Temps morts</span><span class="vv">15&#x27;01</span></div>
+    </div>
+    <div class="card">
+      <h2>Score par période</h2>
+      <table class="periods"><thead><tr><th class="l">Période</th><th>USAM NG 2</th><th>ALES CEVENNES HB</th><th>Cumul</th></tr></thead>
+      <tbody><tr><td class="l">Période 1</td><td style="color:var(--r);font-weight:700">14</td><td style="color:var(--v);font-weight:700">15</td><td>14 - 15</td></tr><tr><td class="l">Période 2</td><td style="color:var(--r);font-weight:700">11</td><td style="color:var(--v);font-weight:700">17</td><td>25 - 32</td></tr><tr><td class="l">Période 3</td><td style="color:var(--r);font-weight:700">10</td><td style="color:var(--v);font-weight:700">11</td><td>35 - 43</td></tr></tbody></table>
+      <h2 style="margin-top:22px">Officiels de la rencontre</h2>
+      <div class="officials"><div><small>Juge-arbitre 1</small>CAMBOLIVE Gaspard</div><div><small>Juge-arbitre 2</small>PINTARD Soan</div><div><small>Chronométreur</small>PEUTEUIL Renaud</div><div><small>Accompagnateur de juges-arbitres</small>CHABINE Jean-Michel</div><div><small>Responsable de salle</small>TETAUD Lucie</div><div><small>Secrétaire</small>SARTINI Helene - Chapel</div></div>
+    </div>
+  </div>
+
+  <h2 class="section-title">👥 Compositions et statistiques individuelles</h2>
+  <div class="grid g2">
+    <div class="card r"><h2><span class="tag r">Recevant</span>USAM NG 2</h2><div class="table-scroll"><table><thead><tr><th>N°</th><th class="l">Joueur</th><th>Buts</th><th>7 m</th><th>Tirs</th><th>Réussite</th><th>Arrêts</th><th>Sanctions</th></tr></thead><tbody><tr class="off"><td><a class="lien" href="../joueurs/6130002108231_CAMPART_Sami.html" aria-label="Statistiques de CAMPART Sami"><span class="num">1</span></a></td><td class="l"><a class="lien" href="../joueurs/6130002108231_CAMPART_Sami.html">CAMPART Sami</a></td><td><b>—</b></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr class=""><td><a class="lien" href="../joueurs/6130002108281_LEAL%20CATARINO_Kamil.html" aria-label="Statistiques de LEAL CATARINO Kamil"><span class="num">2</span></a></td><td class="l"><a class="lien" href="../joueurs/6130002108281_LEAL%20CATARINO_Kamil.html">LEAL CATARINO Kamil</a></td><td><b>3</b></td><td>—</td><td>3/3</td><td>100 %</td><td>—</td><td>—</td></tr><tr class=""><td><a class="lien" href="../joueurs/6130002107985_CASTALDO_Angelo.html" aria-label="Statistiques de CASTALDO Angelo"><span class="num">7</span></a></td><td class="l"><a class="lien" href="../joueurs/6130002107985_CASTALDO_Angelo.html">CASTALDO Angelo</a><span class="badge b-cap">C</span></td><td><b>1</b></td><td>—</td><td>1/1</td><td>100 %</td><td>—</td><td>—</td></tr><tr class="off"><td><a class="lien" href="../joueurs/6130002108543_CHABINE_Nathan.html" aria-label="Statistiques de CHABINE Nathan"><span class="num">9</span></a></td><td class="l"><a class="lien" href="../joueurs/6130002108543_CHABINE_Nathan.html">CHABINE Nathan</a></td><td><b>—</b></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr class=""><td><a class="lien" href="../joueurs/6130002108081_JOYEUX_Louis.html" aria-label="Statistiques de JOYEUX Louis"><span class="num">11</span></a></td><td class="l"><a class="lien" href="../joueurs/6130002108081_JOYEUX_Louis.html">JOYEUX Louis</a></td><td><b>6</b></td><td>—</td><td>6/6</td><td>100 %</td><td>—</td><td>—</td></tr><tr class=""><td><a class="lien" href="../joueurs/6130002109288_GALIEN_Alan.html" aria-label="Statistiques de GALIEN Alan"><span class="num">13</span></a></td><td class="l"><a class="lien" href="../joueurs/6130002109288_GALIEN_Alan.html">GALIEN Alan</a></td><td><b>9</b></td><td>2</td><td>9/9</td><td>100 %</td><td>—</td><td>—</td></tr><tr class=""><td><a class="lien" href="../joueurs/6130002108204_RAUCH_Baptiste.html" aria-label="Statistiques de RAUCH Baptiste"><span class="num">15</span></a></td><td class="l"><a class="lien" href="../joueurs/6130002108204_RAUCH_Baptiste.html">RAUCH Baptiste</a></td><td><b>1</b></td><td>—</td><td>1/1</td><td>100 %</td><td>—</td><td>—</td></tr><tr class=""><td><a class="lien" href="../joueurs/6130002107733_PEUTEUIL_Edouard.html" aria-label="Statistiques de PEUTEUIL Edouard"><span class="num">17</span></a></td><td class="l"><a class="lien" href="../joueurs/6130002107733_PEUTEUIL_Edouard.html">PEUTEUIL Edouard</a></td><td><b>1</b></td><td>—</td><td>1/1</td><td>100 %</td><td>—</td><td>—</td></tr><tr class=""><td><a class="lien" href="../joueurs/6130002107897_BURCIA_Victor.html" aria-label="Statistiques de BURCIA Victor"><span class="num">18</span></a></td><td class="l"><a class="lien" href="../joueurs/6130002107897_BURCIA_Victor.html">BURCIA Victor</a></td><td><b>3</b></td><td>—</td><td>3/3</td><td>100 %</td><td>—</td><td>—</td></tr><tr class=""><td><a class="lien" href="../joueurs/6130002109137_GONZALEZ_Matthis.html" aria-label="Statistiques de GONZALEZ Matthis"><span class="num">70</span></a></td><td class="l"><a class="lien" href="../joueurs/6130002109137_GONZALEZ_Matthis.html">GONZALEZ Matthis</a></td><td><b>3</b></td><td>—</td><td>3/3</td><td>100 %</td><td>—</td><td>—</td></tr><tr class=""><td><a class="lien" href="../joueurs/6130002107812_TRINCAT_Gabriel.html" aria-label="Statistiques de TRINCAT Gabriel"><span class="num">81</span></a></td><td class="l"><a class="lien" href="../joueurs/6130002107812_TRINCAT_Gabriel.html">TRINCAT Gabriel</a></td><td><b>2</b></td><td>—</td><td>2/2</td><td>100 %</td><td>—</td><td>—</td></tr><tr class=""><td><a class="lien" href="../joueurs/6130002107280_TOPORENKO_Eliot.html" aria-label="Statistiques de TOPORENKO Eliot"><span class="num">83</span></a></td><td class="l"><a class="lien" href="../joueurs/6130002107280_TOPORENKO_Eliot.html">TOPORENKO Eliot</a></td><td><b>6</b></td><td>—</td><td>6/6</td><td>100 %</td><td>—</td><td>—</td></tr></tbody></table></div><p class="legend-note">Officiels : JEAN Denis <small>(Officiel responsable A)</small></p></div>
+    <div class="card v"><h2><span class="tag v">Visiteur</span>ALES CEVENNES HB</h2><div class="table-scroll"><table><thead><tr><th>N°</th><th class="l">Joueur</th><th>Buts</th><th>7 m</th><th>Tirs</th><th>Réussite</th><th>Arrêts</th><th>Sanctions</th></tr></thead><tbody><tr class="off"><td><span class="num">4</span></td><td class="l">RONCIN Noa</td><td><b>—</b></td><td>—</td><td>—</td><td>—</td><td>—</td><td><span class="sanc s-2"></span></td></tr><tr class=""><td><span class="num">6</span></td><td class="l">ALPINI Loris</td><td><b>1</b></td><td>—</td><td>1/1</td><td>100 %</td><td>—</td><td>—</td></tr><tr class=""><td><span class="num">10</span></td><td class="l">DURIES--TOMPS Abel</td><td><b>9</b></td><td>—</td><td>9/9</td><td>100 %</td><td>—</td><td>—</td></tr><tr class=""><td><span class="num">13</span></td><td class="l">MATRAY Swann<span class="badge b-cap">C</span></td><td><b>10</b></td><td>—</td><td>10/10</td><td>100 %</td><td>—</td><td><span class="sanc s-2"></span></td></tr><tr class="off"><td><span class="num">16</span></td><td class="l">ALPINI Lino</td><td><b>—</b></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr><tr class=""><td><span class="num">17</span></td><td class="l">SCHWARTZ--ROUQUET Livio</td><td><b>6</b></td><td>—</td><td>6/6</td><td>100 %</td><td>—</td><td>—</td></tr><tr class=""><td><span class="num">20</span></td><td class="l">HAMER--DOS SANTOS Lucas</td><td><b>6</b></td><td>—</td><td>6/6</td><td>100 %</td><td>—</td><td>—</td></tr><tr class="off"><td><span class="num">21</span></td><td class="l">SOUBEIRAN Raphael</td><td><b>—</b></td><td>—</td><td>—</td><td>—</td><td>—</td><td><span class="sanc s-2"></span></td></tr><tr class=""><td><span class="num">22</span></td><td class="l">ALLAVENA VELAY Yoni</td><td><b>3</b></td><td>—</td><td>3/3</td><td>100 %</td><td>—</td><td>—</td></tr><tr class=""><td><span class="num">40</span></td><td class="l">CHAPEL Gabin</td><td><b>8</b></td><td>—</td><td>8/8</td><td>100 %</td><td>—</td><td>—</td></tr></tbody></table></div><p class="legend-note">Officiels : FAUTRAY Frederic <small>(Officiel responsable A)</small> · FILIKESA Tamiano <small>(Officiel B)</small></p></div>
+  </div>
+</div></main>
+<footer>Généré le 21/10/2026 à 21h18 à partir de la feuille de match VAGJYMO.</footer>
+
+<script id="match-data" type="application/json">{"noms": {"R": "USAM NG 2", "V": "ALES CEVENNES HB"}, "score": [35, 43], "fin_match": 3240, "buts": [{"t": 124, "cote": "V", "periode": "P1", "joueur": "DURIES--TOMPS Abel", "numero": 10, "n": 1, "jet7m": false, "sr": 0, "sv": 1}, {"t": 216, "cote": "V", "periode": "P1", "joueur": "MATRAY Swann", "numero": 13, "n": 1, "jet7m": false, "sr": 0, "sv": 2}, {"t": 232, "cote": "R", "periode": "P1", "joueur": "BURCIA Victor", "numero": 18, "n": 1, "jet7m": false, "sr": 1, "sv": 2}, {"t": 264, "cote": "V", "periode": "P1", "joueur": "CHAPEL Gabin", "numero": 40, "n": 1, "jet7m": false, "sr": 1, "sv": 3}, {"t": 275, "cote": "R", "periode": "P1", "joueur": "JOYEUX Louis", "numero": 11, "n": 1, "jet7m": false, "sr": 2, "sv": 3}, {"t": 309, "cote": "V", "periode": "P1", "joueur": "MATRAY Swann", "numero": 13, "n": 2, "jet7m": false, "sr": 2, "sv": 4}, {"t": 341, "cote": "R", "periode": "P1", "joueur": "RAUCH Baptiste", "numero": 15, "n": 1, "jet7m": false, "sr": 3, "sv": 4}, {"t": 385, "cote": "R", "periode": "P1", "joueur": "LEAL CATARINO Kamil", "numero": 2, "n": 1, "jet7m": false, "sr": 4, "sv": 4}, {"t": 400, "cote": "V", "periode": "P1", "joueur": "HAMER--DOS SANTOS Lucas", "numero": 20, "n": 1, "jet7m": false, "sr": 4, "sv": 5}, {"t": 451, "cote": "R", "periode": "P1", "joueur": "JOYEUX Louis", "numero": 11, "n": 2, "jet7m": false, "sr": 5, "sv": 5}, {"t": 465, "cote": "V", "periode": "P1", "joueur": "HAMER--DOS SANTOS Lucas", "numero": 20, "n": 2, "jet7m": false, "sr": 5, "sv": 6}, {"t": 496, "cote": "R", "periode": "P1", "joueur": "PEUTEUIL Edouard", "numero": 17, "n": 1, "jet7m": false, "sr": 6, "sv": 6}, {"t": 515, "cote": "V", "periode": "P1", "joueur": "DURIES--TOMPS Abel", "numero": 10, "n": 2, "jet7m": false, "sr": 6, "sv": 7}, {"t": 550, "cote": "V", "periode": "P1", "joueur": "HAMER--DOS SANTOS Lucas", "numero": 20, "n": 3, "jet7m": false, "sr": 6, "sv": 8}, {"t": 612, "cote": "V", "periode": "P1", "joueur": "ALLAVENA VELAY Yoni", "numero": 22, "n": 1, "jet7m": false, "sr": 6, "sv": 9}, {"t": 636, "cote": "R", "periode": "P1", "joueur": "BURCIA Victor", "numero": 18, "n": 2, "jet7m": false, "sr": 7, "sv": 9}, {"t": 649, "cote": "V", "periode": "P1", "joueur": "HAMER--DOS SANTOS Lucas", "numero": 20, "n": 4, "jet7m": false, "sr": 7, "sv": 10}, {"t": 686, "cote": "R", "periode": "P1", "joueur": "GALIEN Alan", "numero": 13, "n": 1, "jet7m": false, "sr": 8, "sv": 10}, {"t": 728, "cote": "V", "periode": "P1", "joueur": "ALPINI Loris", "numero": 6, "n": 1, "jet7m": false, "sr": 8, "sv": 11}, {"t": 746, "cote": "R", "periode": "P1", "joueur": "GONZALEZ Matthis", "numero": 70, "n": 1, "jet7m": false, "sr": 9, "sv": 11}, {"t": 800, "cote": "R", "periode": "P1", "joueur": "GALIEN Alan", "numero": 13, "n": 2, "jet7m": false, "sr": 10, "sv": 11}, {"t": 811, "cote": "V", "periode": "P1", "joueur": "ALLAVENA VELAY Yoni", "numero": 22, "n": 2, "jet7m": false, "sr": 10, "sv": 12}, {"t": 844, "cote": "R", "periode": "P1", "joueur": "TOPORENKO Eliot", "numero": 83, "n": 1, "jet7m": false, "sr": 11, "sv": 12}, {"t": 872, "cote": "V", "periode": "P1", "joueur": "MATRAY Swann", "numero": 13, "n": 3, "jet7m": false, "sr": 11, "sv": 13}, {"t": 898, "cote": "R", "periode": "P1", "joueur": "GALIEN Alan", "numero": 13, "n": 3, "jet7m": true, "sr": 12, "sv": 13}, {"t": 916, "cote": "V", "periode": "P1", "joueur": "DURIES--TOMPS Abel", "numero": 10, "n": 3, "jet7m": false, "sr": 12, "sv": 14}, {"t": 940, "cote": "R", "periode": "P1", "joueur": "TOPORENKO Eliot", "numero": 83, "n": 2, "jet7m": false, "sr": 13, "sv": 14}, {"t": 1046, "cote": "R", "periode": "P1", "joueur": "TOPORENKO Eliot", "numero": 83, "n": 3, "jet7m": false, "sr": 14, "sv": 14}, {"t": 1069, "cote": "V", "periode": "P1", "joueur": "MATRAY Swann", "numero": 13, "n": 4, "jet7m": false, "sr": 14, "sv": 15}, {"t": 1162, "cote": "V", "periode": "P2", "joueur": "SCHWARTZ--ROUQUET Livio", "numero": 17, "n": 1, "jet7m": false, "sr": 14, "sv": 16}, {"t": 1183, "cote": "R", "periode": "P2", "joueur": "GALIEN Alan", "numero": 13, "n": 4, "jet7m": false, "sr": 15, "sv": 16}, {"t": 1212, "cote": "V", "periode": "P2", "joueur": "CHAPEL Gabin", "numero": 40, "n": 2, "jet7m": false, "sr": 15, "sv": 17}, {"t": 1229, "cote": "R", "periode": "P2", "joueur": "GALIEN Alan", "numero": 13, "n": 5, "jet7m": false, "sr": 16, "sv": 17}, {"t": 1257, "cote": "V", "periode": "P2", "joueur": "CHAPEL Gabin", "numero": 40, "n": 3, "jet7m": false, "sr": 16, "sv": 18}, {"t": 1309, "cote": "R", "periode": "P2", "joueur": "TRINCAT Gabriel", "numero": 81, "n": 1, "jet7m": false, "sr": 17, "sv": 18}, {"t": 1331, "cote": "V", "periode": "P2", "joueur": "MATRAY Swann", "numero": 13, "n": 5, "jet7m": false, "sr": 17, "sv": 19}, {"t": 1374, "cote": "V", "periode": "P2", "joueur": "SCHWARTZ--ROUQUET Livio", "numero": 17, "n": 2, "jet7m": false, "sr": 17, "sv": 20}, {"t": 1397, "cote": "R", "periode": "P2", "joueur": "TRINCAT Gabriel", "numero": 81, "n": 2, "jet7m": false, "sr": 18, "sv": 20}, {"t": 1413, "cote": "V", "periode": "P2", "joueur": "DURIES--TOMPS Abel", "numero": 10, "n": 4, "jet7m": false, "sr": 18, "sv": 21}, {"t": 1426, "cote": "R", "periode": "P2", "joueur": "JOYEUX Louis", "numero": 11, "n": 3, "jet7m": false, "sr": 19, "sv": 21}, {"t": 1432, "cote": "V", "periode": "P2", "joueur": "CHAPEL Gabin", "numero": 40, "n": 4, "jet7m": false, "sr": 19, "sv": 22}, {"t": 1489, "cote": "V", "periode": "P2", "joueur": "HAMER--DOS SANTOS Lucas", "numero": 20, "n": 5, "jet7m": false, "sr": 19, "sv": 23}, {"t": 1525, "cote": "R", "periode": "P2", "joueur": "GALIEN Alan", "numero": 13, "n": 6, "jet7m": false, "sr": 20, "sv": 23}, {"t": 1540, "cote": "V", "periode": "P2", "joueur": "MATRAY Swann", "numero": 13, "n": 6, "jet7m": false, "sr": 20, "sv": 24}, {"t": 1651, "cote": "V", "periode": "P2", "joueur": "MATRAY Swann", "numero": 13, "n": 7, "jet7m": false, "sr": 20, "sv": 25}, {"t": 1686, "cote": "R", "periode": "P2", "joueur": "TOPORENKO Eliot", "numero": 83, "n": 4, "jet7m": false, "sr": 21, "sv": 25}, {"t": 1708, "cote": "V", "periode": "P2", "joueur": "CHAPEL Gabin", "numero": 40, "n": 5, "jet7m": false, "sr": 21, "sv": 26}, {"t": 1741, "cote": "R", "periode": "P2", "joueur": "GALIEN Alan", "numero": 13, "n": 7, "jet7m": false, "sr": 22, "sv": 26}, {"t": 1761, "cote": "V", "periode": "P2", "joueur": "MATRAY Swann", "numero": 13, "n": 8, "jet7m": false, "sr": 22, "sv": 27}, {"t": 1786, "cote": "R", "periode": "P2", "joueur": "BURCIA Victor", "numero": 18, "n": 3, "jet7m": false, "sr": 23, "sv": 27}, {"t": 1867, "cote": "V", "periode": "P2", "joueur": "DURIES--TOMPS Abel", "numero": 10, "n": 5, "jet7m": false, "sr": 23, "sv": 28}, {"t": 1963, "cote": "V", "periode": "P2", "joueur": "MATRAY Swann", "numero": 13, "n": 9, "jet7m": false, "sr": 23, "sv": 29}, {"t": 1979, "cote": "R", "periode": "P2", "joueur": "GALIEN Alan", "numero": 13, "n": 8, "jet7m": false, "sr": 24, "sv": 29}, {"t": 2001, "cote": "V", "periode": "P2", "joueur": "CHAPEL Gabin", "numero": 40, "n": 6, "jet7m": false, "sr": 24, "sv": 30}, {"t": 2032, "cote": "R", "periode": "P2", "joueur": "GONZALEZ Matthis", "numero": 70, "n": 2, "jet7m": false, "sr": 25, "sv": 30}, {"t": 2040, "cote": "V", "periode": "P2", "joueur": "CHAPEL Gabin", "numero": 40, "n": 7, "jet7m": false, "sr": 25, "sv": 31}, {"t": 2153, "cote": "V", "periode": "P2", "joueur": "SCHWARTZ--ROUQUET Livio", "numero": 17, "n": 3, "jet7m": false, "sr": 25, "sv": 32}, {"t": 2185, "cote": "R", "periode": "P3", "joueur": "TOPORENKO Eliot", "numero": 83, "n": 5, "jet7m": false, "sr": 26, "sv": 32}, {"t": 2235, "cote": "R", "periode": "P3", "joueur": "LEAL CATARINO Kamil", "numero": 2, "n": 2, "jet7m": false, "sr": 27, "sv": 32}, {"t": 2339, "cote": "V", "periode": "P3", "joueur": "ALLAVENA VELAY Yoni", "numero": 22, "n": 3, "jet7m": false, "sr": 27, "sv": 33}, {"t": 2374, "cote": "R", "periode": "P3", "joueur": "CASTALDO Angelo", "numero": 7, "n": 1, "jet7m": false, "sr": 28, "sv": 33}, {"t": 2409, "cote": "R", "periode": "P3", "joueur": "TOPORENKO Eliot", "numero": 83, "n": 6, "jet7m": false, "sr": 29, "sv": 33}, {"t": 2432, "cote": "V", "periode": "P3", "joueur": "MATRAY Swann", "numero": 13, "n": 10, "jet7m": false, "sr": 29, "sv": 34}, {"t": 2471, "cote": "V", "periode": "P3", "joueur": "DURIES--TOMPS Abel", "numero": 10, "n": 6, "jet7m": false, "sr": 29, "sv": 35}, {"t": 2505, "cote": "R", "periode": "P3", "joueur": "JOYEUX Louis", "numero": 11, "n": 4, "jet7m": false, "sr": 30, "sv": 35}, {"t": 2568, "cote": "V", "periode": "P3", "joueur": "DURIES--TOMPS Abel", "numero": 10, "n": 7, "jet7m": false, "sr": 30, "sv": 36}, {"t": 2648, "cote": "R", "periode": "P3", "joueur": "LEAL CATARINO Kamil", "numero": 2, "n": 3, "jet7m": false, "sr": 31, "sv": 36}, {"t": 2663, "cote": "V", "periode": "P3", "joueur": "HAMER--DOS SANTOS Lucas", "numero": 20, "n": 6, "jet7m": false, "sr": 31, "sv": 37}, {"t": 2723, "cote": "R", "periode": "P3", "joueur": "JOYEUX Louis", "numero": 11, "n": 5, "jet7m": false, "sr": 32, "sv": 37}, {"t": 2767, "cote": "R", "periode": "P3", "joueur": "GALIEN Alan", "numero": 13, "n": 9, "jet7m": true, "sr": 33, "sv": 37}, {"t": 2782, "cote": "V", "periode": "P3", "joueur": "DURIES--TOMPS Abel", "numero": 10, "n": 8, "jet7m": false, "sr": 33, "sv": 38}, {"t": 2848, "cote": "V", "periode": "P3", "joueur": "SCHWARTZ--ROUQUET Livio", "numero": 17, "n": 4, "jet7m": false, "sr": 33, "sv": 39}, {"t": 2893, "cote": "V", "periode": "P3", "joueur": "SCHWARTZ--ROUQUET Livio", "numero": 17, "n": 5, "jet7m": false, "sr": 33, "sv": 40}, {"t": 2946, "cote": "V", "periode": "P3", "joueur": "DURIES--TOMPS Abel", "numero": 10, "n": 9, "jet7m": false, "sr": 33, "sv": 41}, {"t": 3059, "cote": "R", "periode": "P3", "joueur": "GONZALEZ Matthis", "numero": 70, "n": 3, "jet7m": false, "sr": 34, "sv": 41}, {"t": 3074, "cote": "V", "periode": "P3", "joueur": "CHAPEL Gabin", "numero": 40, "n": 8, "jet7m": false, "sr": 34, "sv": 42}, {"t": 3097, "cote": "R", "periode": "P3", "joueur": "JOYEUX Louis", "numero": 11, "n": 6, "jet7m": false, "sr": 35, "sv": 42}, {"t": 3240, "cote": "V", "periode": "P3", "joueur": "SCHWARTZ--ROUQUET Livio", "numero": 17, "n": 6, "jet7m": false, "sr": 35, "sv": 43}], "temps_morts": [{"t": 901, "cote": "V"}, {"t": 2668, "cote": "R"}, {"t": 3110, "cote": "R"}]}</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script>
+const D = JSON.parse(document.getElementById('match-data').textContent);
+const css = getComputedStyle(document.documentElement);
+const COL = {R: css.getPropertyValue('--r').trim(), V: css.getPropertyValue('--v').trim()};
+const fmt = s => { const m = Math.floor(s / 60), x = Math.round(s % 60); return String(m).padStart(2, '0') + "'" + String(x).padStart(2, '0'); };
+
+if (D.fin_match === null) {
+  ['chart-score', 'chart-ecart'].forEach(id =>
+    document.getElementById(id).replaceWith(Object.assign(document.createElement('p'),
+      {className: 'empty', textContent: 'Durée indisponible : aucun événement horodaté hors tirs au but.'})));
+} else {
+const markers = {
+  id: 'markers',
+  beforeDatasetsDraw(chart) {
+    const {ctx, chartArea: a, scales: {x}} = chart;
+    ctx.save();
+    D.temps_morts.forEach(tm => {
+      const px = x.getPixelForValue(tm.t);
+      ctx.fillStyle = COL[tm.cote]; ctx.globalAlpha = .9;
+      ctx.fillRect(px - 1, a.bottom - 16, 2, 16);
+      ctx.beginPath(); ctx.arc(px, a.bottom - 18, 5, 0, Math.PI * 2); ctx.fill();
+      ctx.globalAlpha = 1; ctx.fillStyle = '#fff'; ctx.font = 'bold 8px Segoe UI, sans-serif';
+      ctx.textAlign = 'center'; ctx.fillText('T', px, a.bottom - 15.5); ctx.textAlign = 'start';
+    });
+    ctx.restore();
+  }
+};
+
+function serie(cote) {
+  const pts = [{x: 0, y: 0, debut: true}];
+  D.buts.filter(b => b.cote === cote).forEach(b => pts.push({x: b.t, y: cote === 'R' ? b.sr : b.sv, but: b}));
+  pts.push({x: D.fin_match, y: cote === 'R' ? D.score[0] : D.score[1], fin: true});
+  return pts;
+}
+
+const xAxis = {type: 'linear', min: 0, max: D.fin_match,
+  ticks: {stepSize: 300, callback: v => fmt(v)}, title: {display: true, text: 'Temps de jeu'},
+  grid: {color: '#eef2f7'}};
+
+new Chart(document.getElementById('chart-score'), {
+  type: 'line',
+  data: {datasets: ['R', 'V'].map(c => ({
+    label: D.noms[c], data: serie(c), stepped: 'after', borderColor: COL[c],
+    backgroundColor: COL[c] + '22', fill: 'origin', borderWidth: 2.5, tension: 0,
+    borderDash: [],
+    pointRadius: ctx => ctx.raw && ctx.raw.but ? (ctx.raw.but.jet7m ? 5 : 3.5) : 0,
+    pointHoverRadius: ctx => ctx.raw && ctx.raw.but ? 8 : 0,
+    pointStyle: ctx => {
+      if (ctx.raw && ctx.raw.but && ctx.raw.but.jet7m) return 'rectRot';
+      return c === 'V' ? 'rect' : 'circle';
+    },
+    pointBackgroundColor: '#fff', pointBorderColor: COL[c], pointBorderWidth: 2,
+  }))},
+  options: {
+    responsive: true, maintainAspectRatio: false, parsing: false,
+    interaction: {mode: 'nearest', intersect: true},
+    scales: {x: xAxis, y: {beginAtZero: true, title: {display: true, text: 'Score cumulé'},
+      ticks: {precision: 0}, grid: {color: '#eef2f7'}}},
+    plugins: {
+      legend: {position: 'top', labels: {usePointStyle: true}},
+      tooltip: {
+        filter: it => !!(it.raw && it.raw.but), backgroundColor: '#0f172a', padding: 12,
+        titleFont: {size: 13}, bodyFont: {size: 13}, displayColors: false,
+        callbacks: {
+          title: items => { const b = items[0].raw.but; return fmt(b.t) + ' · ' + b.periode + ' · ' + D.noms[b.cote]; },
+          label: it => {
+            const b = it.raw.but, num = b.numero !== null ? ' (n°' + b.numero + ')' : '';
+            return [b.joueur + num,
+              (b.n === null ? 'But sans auteur identifié' :
+                (b.n === 1 ? '1er but' : b.n + 'e but') + ' du joueur') + (b.jet7m ? ' — jet de 7 m' : ''),
+              'Score : ' + b.sr + ' - ' + b.sv];
+          }
+        }
+      }
+    }
+  },
+  plugins: [markers]
+});
+
+const ecarts = [{x: 0, y: 0}].concat(D.buts.map(b => ({x: b.t, y: b.sr - b.sv, but: b})));
+ecarts.push({x: D.fin_match, y: D.score[0] - D.score[1]});
+new Chart(document.getElementById('chart-ecart'), {
+  type: 'line',
+  data: {datasets: [{label: 'Écart (recevant − visiteur)', data: ecarts, stepped: 'after', borderWidth: 2,
+    pointRadius: 0, pointHoverRadius: 5, fill: {target: 'origin', above: COL.R + '33', below: COL.V + '33'},
+    segment: {borderColor: ctx => ctx.p0.parsed.y > 0 ? COL.R : ctx.p0.parsed.y < 0 ? COL.V : '#94a3b8'}}]},
+  options: {
+    responsive: true, maintainAspectRatio: false, parsing: false,
+    interaction: {mode: 'nearest', intersect: false, axis: 'x'},
+    scales: {x: xAxis, y: {ticks: {precision: 0, callback: v => v > 0 ? '+' + v : v}, grid: {color: '#eef2f7'}}},
+    plugins: {legend: {display: false}, tooltip: {
+      filter: it => !!it.raw.but, displayColors: false, backgroundColor: '#0f172a',
+      callbacks: {title: i => fmt(i[0].raw.x), label: it => {
+        const e = it.raw.y; return e === 0 ? 'Égalité' : (e > 0 ? D.noms.R : D.noms.V) + ' +' + Math.abs(e); }}}}
+  },
+  plugins: [markers]
+});
+}
+</script>
+<script id="hb-export" type="application/json">{"version": 1, "saison": "2025-2026", "club": "6130002", "club_nom": "USAM NIMES GARD", "competition": "-15M", "competition_id": null, "strate": "regional", "regroupement": "categorie", "categorie_id": 981, "scope_id": "categorie:981", "competitions": ["-15 ANS M 1ERE DIVISION", "-15 ANS M 2E DIVISION"], "couleur_1": "#046734", "couleur_2": "#47AC4E", "couleur_3": "#CC5500", "exporte_le": "2026-10-21T19:18:14.474775+00:00", "kind": "rencontre", "identite": ["2025-2026", "6130002", "categorie:981", "rencontre", 5643], "competition_rencontre": "-15 ANS M 2E DIVISION", "division": 2, "label": "USAM NG 2 vs ALES CEVENNES HB", "date": "2026-03-14", "date_affichage": "Samedi 14 mars 2026 à 13h00", "date_resume": "sam. 14 mar.", "heure": "13h00", "domicile": "USAM NG 2", "exterieur": "ALES CEVENNES HB", "domicile_id": "11210", "exterieur_id": "11211", "journee": 10, "equipe_club": "USAM NG 2", "cote_club": "R", "statut": "Jouée", "statut_code": "JOUEE", "cote_forfait": null, "forfait": false, "equipe_forfait_id": null, "equipes_club": [{"id": "11210", "nom": "USAM NG 2"}], "score_recevant": 35, "score_visiteur": 43, "groupe": "-15 ANS M D2 (2E PHASE) · POULE D"}</script></body>
+</html>
