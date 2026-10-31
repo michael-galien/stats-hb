@@ -1,0 +1,307 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MONTPELLIER HB CENTRE · Statistiques d’équipe</title><style>
+:root{--r:#2563eb;--r-soft:#dbeafe;--v:#ea580c;--v-soft:#ffedd5;--bg:#f1f5f9;--card:#fff;
+--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--ok:#16a34a;}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+background:var(--bg);color:var(--ink);line-height:1.45}
+.hero{background:radial-gradient(1200px 400px at 10% -10%,#1e3a8a 0,transparent 60%),
+radial-gradient(900px 400px at 100% 0,#9a3412 0,transparent 55%),#0f172a;color:#fff;padding:28px 20px 90px}
+.wrap{max-width:1180px;margin:0 auto}
+.crumbs{display:flex;flex-wrap:wrap;gap:8px;font-size:.82rem}
+.chip{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);padding:3px 10px;border-radius:999px}
+.scoreboard{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;margin-top:26px}
+.team{display:flex;flex-direction:column;gap:4px}
+.team.r{text-align:right;align-items:flex-end}
+.team .label{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;opacity:.7}
+.team .name{font-size:1.7rem;font-weight:700}
+.team.r .name{border-right:5px solid var(--r);padding-right:12px}
+.team.v .name{border-left:5px solid var(--v);padding-left:12px}
+.score{display:flex;align-items:center;font-size:3.6rem;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:.02em;
+background:rgba(255,255,255,.08);padding:6px 18px;border-radius:18px;white-space:nowrap}
+.score-side{display:inline-block;padding:3px 9px;border-radius:8px;background:var(--r);color:#fff}
+.score-side.v{background:var(--v)}
+.score small{font-size:1.4rem;opacity:.6;margin:0 6px}
+.result{text-align:center;margin-top:8px;font-size:.9rem;opacity:.85}
+.meta{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 26px;margin-top:22px;font-size:.92rem;opacity:.92}
+.meta span b{font-weight:600}
+main{margin-top:-64px;padding:0 20px 40px}
+.grid{display:grid;gap:18px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr))}
+.card{min-width:0}.table-scroll{overflow-x:auto}.table-spaced{margin-top:16px}
+.card{background:var(--card);border-radius:16px;box-shadow:0 1px 2px rgba(15,23,42,.06),0 8px 24px rgba(15,23,42,.06);padding:20px}
+.card h2{margin:0 0 14px;font-size:1.05rem;display:flex;align-items:center;gap:8px}
+.card h2 .tag{font-size:.7rem;font-weight:600;padding:2px 8px;border-radius:999px;color:#fff}
+.tag.r{background:var(--r)}.tag.v{background:var(--v)}
+.section-title{margin:30px 0 12px;font-size:1.25rem}
+.podium{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.podium li{display:grid;grid-template-columns:38px 1fr auto;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;background:#f8fafc}
+.medal{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:800;color:#fff}
+.m1{background:linear-gradient(135deg,#facc15,#ca8a04)}.m2{background:linear-gradient(135deg,#cbd5e1,#64748b)}
+.m3{background:linear-gradient(135deg,#fdba74,#b45309)}
+.podium .who b{display:block}.podium .who small{color:var(--muted)}
+.podium .goals{font-size:1.6rem;font-weight:800;font-variant-numeric:tabular-nums}
+.r .goals{color:var(--r)}.v .goals{color:var(--v)}
+.empty{color:var(--muted);font-style:italic}
+.kpi{display:flex;flex-direction:column;gap:6px}
+.kpi .k-title{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.kpi .k-val{font-size:2.2rem;font-weight:800;font-variant-numeric:tabular-nums}
+.kpi .k-sub{font-size:.85rem;color:var(--muted)}
+.duel{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+.duel:last-child{border-bottom:0}
+.duel .lab{text-align:center;font-size:.8rem;color:var(--muted);min-width:150px}
+.duel .vr{text-align:right;font-weight:700;color:var(--r)}.duel .vv{font-weight:700;color:var(--v)}
+.bar{height:6px;border-radius:6px;background:var(--line);overflow:hidden;margin-top:4px;display:flex}
+.bar i{display:block;height:100%}
+.chart-box{position:relative;height:420px}
+.chart-box.small{height:220px}
+.legend-note{font-size:.82rem;color:var(--muted);margin-top:8px}
+table{width:100%;border-collapse:collapse;font-size:.88rem;font-variant-numeric:tabular-nums}
+th,td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:center}
+th{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
+td.l,th.l{text-align:left}
+tr.off td{color:var(--muted)}
+.num{display:inline-grid;place-items:center;min-width:28px;height:24px;border-radius:7px;font-weight:700;font-size:.8rem;color:#fff}
+.r .num{background:var(--r)}.v .num{background:var(--v)}
+.badge{font-size:.66rem;font-weight:700;border-radius:5px;padding:1px 5px;margin-left:5px;vertical-align:middle}
+.b-cap{background:#0f172a;color:#fff}.b-gk{background:#e2e8f0;color:#334155}
+.sanc{display:inline-block;width:9px;height:12px;border-radius:2px;margin-right:2px;vertical-align:-1px}
+.s-y{background:#facc15}.s-2{background:#94a3b8}.s-r{background:#dc2626}
+.periods td,.periods th{text-align:center}
+.officials{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px 20px;font-size:.9rem}
+.officials div small{display:block;color:var(--muted);font-size:.75rem;text-transform:uppercase;letter-spacing:.06em}
+.warn{background:#fef3c7;color:#92400e;border-radius:12px;padding:10px 14px;font-size:.88rem;margin-bottom:18px}
+footer{text-align:center;color:var(--muted);font-size:.8rem;padding:10px 0 30px}
+@media (max-width:720px){.scoreboard{grid-template-columns:1fr}.team.r{text-align:left;align-items:flex-start}
+.team.r .name{border-right:0;border-left:5px solid var(--r);padding:0 0 0 12px}.score{justify-self:start;font-size:2.6rem}
+.chart-box{height:320px}}
+
+.player{display:flex;align-items:center;gap:24px;margin-top:24px}
+.avatar{flex:none;width:104px;height:104px;border-radius:50%;display:grid;place-items:center;
+font-size:2.4rem;font-weight:800;background:linear-gradient(135deg,var(--r),#1e3a8a);
+border:3px solid rgba(255,255,255,.25);box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.player .label{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;opacity:.7}
+.player h1{margin:2px 0 4px;font-size:2.3rem;line-height:1.1}
+.player .sub{opacity:.85}
+.record{display:flex;gap:8px;margin-left:auto;text-align:center}
+.record div{background:rgba(255,255,255,.08);border-radius:14px;padding:8px 14px;min-width:64px}
+.record b{display:block;font-size:1.6rem;font-variant-numeric:tabular-nums}
+.record small{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;opacity:.75}
+.res{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:6px;color:#fff;font-weight:700;font-size:.75rem}
+.res.V{background:var(--ok)}.res.N{background:#94a3b8}.res.D{background:#dc2626}.res.X{background:#cbd5e1}
+tr.me td{background:var(--r-soft);font-weight:700}
+.disc{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;text-align:center}
+.disc div{background:#f8fafc;border-radius:12px;padding:12px 6px}
+.disc .ico{width:22px;height:30px;border-radius:4px;margin:0 auto 6px;display:grid;place-items:center;font-size:.7rem;font-weight:800;color:#334155}
+.disc b{display:block;font-size:1.6rem;font-variant-numeric:tabular-nums}
+.disc small{color:var(--muted);font-size:.75rem}
+.s-b{background:#2563eb}
+a.lien{color:var(--r);text-decoration:none;font-weight:600}a.lien:hover{text-decoration:underline}
+.chart-box.mid{height:300px}
+@media (max-width:720px){.player{flex-wrap:wrap}.record{margin-left:0}}
+
+:root{--club-3:#CC5500}
+.team-hero-heading{display:flex;align-items:center;gap:24px}
+.team-hero-heading h1{margin:0;font-size:2.1rem;overflow-wrap:anywhere}
+.team-hero-heading p{margin:6px 0 0;opacity:.85}
+/* Cartes blanches en tête de <main> : la marge négative commune de main (-64px)
+   les fait chevaucher le bas du bandeau .hero (padding-bottom 90px), comme sur
+   les pages joueur ; le reste de chaque carte repose sur le fond clair. */
+.team-record{margin:0;gap:18px;justify-content:stretch;flex-wrap:wrap}
+.team-record div{flex:1 1 190px;min-width:0;padding:22px 16px;border-radius:16px;background:var(--card);color:var(--ink);
+box-shadow:0 1px 2px rgba(15,23,42,.06),0 8px 24px rgba(15,23,42,.12)}
+.team-record b{font-size:2rem;line-height:1.15;margin-bottom:6px}
+.team-record small{display:block;color:var(--muted);opacity:1;font-weight:700}
+.record .record-detail{display:block;margin-top:3px;font-size:.72rem;line-height:1.3;color:var(--muted)}
+@media(max-width:720px){.team-hero-heading{display:block}.team-record{gap:8px}.team-record div{flex-basis:calc(50% - 4px);padding:14px 8px}
+.team-record b{font-size:1.6rem}}
+:root{--club-1:#00348D;--club-2:#E95323;--club-on-1:#ffffff;--club-on-2:#0f172a;--r:#00348D;--v:#E95323;--r-soft:color-mix(in srgb,var(--r) 12%,white);--v-soft:color-mix(in srgb,var(--v) 12%,white);--r-text:#00348d;--v-text:#bd441d}.tag.r{color:var(--club-on-1)}.tag.v{color:var(--club-on-2)}.r .goals,.duel .vr{color:var(--r-text)}.v .goals,.duel .vv{color:var(--v-text)}.team.r .name{border-color:var(--club-1)}.team.v .name{border-color:var(--club-2)}.r .num{color:var(--club-on-1)}.v .num{color:var(--club-on-2)}
+.hero{background:linear-gradient(120deg,var(--club-1) 65%,color-mix(in srgb,var(--club-1) 85%,var(--club-2)));color:var(--club-on-1);border-bottom:5px solid var(--club-2)}
+.handball-banner{position:relative;isolation:isolate;overflow:hidden;background:var(--club-1,#2563eb);color:var(--club-on-1,#fff);padding:14px 20px}
+.banner-inner{max-width:1180px;min-height:150px;margin:auto;display:flex;align-items:center;gap:20px}
+.banner-copy{position:relative;z-index:1;display:flex;flex-direction:column;gap:8px;min-width:0;max-width:75%;overflow-wrap:anywhere}
+.banner-art{position:absolute;inset:0;z-index:0;width:100%;height:100%;overflow:hidden}
+.banner-art img{display:block;width:100%;height:100%;object-fit:cover;object-position:right center}
+.banner-art:after{content:"";position:absolute;inset:0;background:linear-gradient(to right,var(--club-1),color-mix(in srgb,var(--club-1) 95%,transparent) 60%,transparent 100%);pointer-events:none}
+.banner-heading{display:flex;flex-direction:column;min-width:0}
+.banner-heading strong{font-size:1.05rem}.banner-heading span{font-size:.82rem;opacity:.92}
+.banner-nav{min-width:0}.banner-nav nav{padding:0;display:flex;flex-wrap:wrap;gap:5px}
+.handball-banner .banner-nav a{color:var(--club-on-1);text-decoration:underline;text-underline-offset:3px}
+.relation-links{padding-top:8px;overflow-wrap:anywhere}
+.nav-group{margin:18px 0;border:1px solid var(--line);border-radius:14px;background:var(--card);overflow:hidden}
+.nav-group summary{cursor:pointer;padding:15px 18px;font-weight:750}
+.nav-direct{grid-template-columns:1fr!important}
+.nav-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(310px,100%),1fr));gap:12px;padding:0 14px 14px}
+.nav-card{display:block;min-width:0;padding:15px;border-radius:12px;background:#fff;border:1px solid var(--line);
+border-top:4px solid var(--club-1,var(--r));box-shadow:0 3px 12px #0f172a0d;color:var(--ink);text-decoration:none}
+.nav-card:hover,.nav-card:focus-visible{outline:3px solid var(--club-2,var(--v));outline-offset:2px}
+.nav-card strong{display:block;font-size:1rem;overflow-wrap:anywhere}
+.nav-card small{display:block;color:var(--muted);margin-top:4px}
+.match-card{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:12px}
+.match-card .home{text-align:right}.match-card .away{text-align:left}
+.match-card .score-card{font-size:1.3rem;font-weight:850;font-variant-numeric:tabular-nums;white-space:nowrap;
+padding:6px 10px;border-radius:10px;background:var(--r-soft);color:var(--r-text)}
+.match-card .home:before,.match-card .away:before{display:inline-block;font-weight:800;font-size:.7rem;
+padding:2px 6px;border-radius:5px;margin:0 5px 3px 0}
+.match-card .home:before{content:"DOMICILE";background:var(--r-soft);color:var(--r-text)}
+.match-card .away:before{content:"EXTÉRIEUR";background:var(--v-soft);color:var(--v-text)}
+.player-card{border-left:5px solid var(--club-1,var(--r))}
+.player-card .metrics{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:8px;font-variant-numeric:tabular-nums}
+.player-card .metrics span{font-size:.85rem}.search-tools{margin:20px 0}
+.matches-list{display:grid;gap:5px;padding:10px}
+.match-row{display:grid;grid-template-columns:132px minmax(0,1fr) auto minmax(0,1fr) 20px;
+align-items:center;gap:12px;padding:12px 14px;border:0;border-radius:10px}
+.site-index main{margin-top:0;padding:24px 20px 40px}
+.match-row{color:var(--ink);text-decoration:none}
+.match-row:nth-child(even){background:#f4f7fb}
+.match-row:hover,.match-row:focus-visible{background:var(--r-soft);outline:2px solid var(--club-1);outline-offset:1px}
+.match-date{font-size:.82rem;color:#475569;line-height:1.4}
+.match-date strong,.match-date span{display:block}.match-date strong{color:var(--ink)}
+.match-home,.match-away{min-width:0;overflow-wrap:anywhere}
+.match-home{text-align:right}.match-away{text-align:left}
+.match-home.club-team,.match-away.club-team{color:var(--r-text);font-weight:800}
+.match-home:before,.match-away:before{font-size:.62rem;letter-spacing:.04em;color:var(--muted);font-weight:650}
+.match-home:before{content:"DOMICILE · "}.match-away:before{content:"EXTÉRIEUR · "}
+.score-pair{display:flex;align-items:center;gap:3px}
+.score-pill{min-width:34px;text-align:center;padding:6px 8px;border-radius:8px;background:#0f172a;color:#fff;
+font-size:1rem;font-weight:850;font-variant-numeric:tabular-nums}
+.score-pill.club-score{background:color-mix(in srgb,var(--club-1) 10%,white);color:var(--r-text)}
+.score-pill.club-score.club-loss{color:#b91c1c}
+.scoreboard .score-side.club-loss{color:#b91c1c;background:color-mix(in srgb,var(--club-1) 10%,white)}
+.score-unavailable{max-width:115px;text-align:center;color:var(--muted);font-size:.76rem}
+.match-chevron{color:var(--club-2);font-size:1.3rem;font-weight:900}
+.match-badges{grid-column:2/5;display:flex;flex-wrap:wrap;gap:5px}
+.match-badge,.player-badge{display:inline-block;border-radius:999px;padding:2px 8px;background:#eaf0f8;
+color:#334155;font-size:.69rem;font-weight:700}
+.players-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;padding:10px}
+.player-card{display:flex;flex-direction:column;min-width:0;overflow:hidden;padding:0;border:1px solid var(--line);
+border-left:5px solid var(--club-1,var(--r));border-top:0;border-radius:16px;background:#fff}
+.player-top{display:flex;flex:1;align-items:center;gap:12px;min-height:120px;padding:16px 14px;
+background:color-mix(in srgb,var(--club-1) 7%,white)}
+.jersey{flex:0 0 48px;width:48px;height:52px}.jersey text{font:700 15px system-ui,sans-serif}
+.player-ident{min-width:0}.player-name{display:block;font-size:1rem;line-height:1.25;overflow-wrap:anywhere}
+.player-teams{display:block;margin-top:4px;font-size:.78rem;color:var(--muted);overflow-wrap:anywhere}
+.player-badges{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px}
+.player-badge.role{background:var(--r-soft);color:var(--r-text)}
+.player-badge.category{background:var(--v-soft);color:var(--v-text)}
+.player-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:auto;border-top:1px solid var(--line)}
+.player-stat{text-align:center;padding:10px 4px;min-width:0}
+.player-stat+.player-stat{border-left:1px solid var(--line)}
+.player-stat strong{display:block;font-size:1.35rem;line-height:1.2;font-weight:850;font-variant-numeric:tabular-nums}
+.player-stat small{display:block;margin-top:4px;color:#475569;font-size:.65rem;font-weight:700;letter-spacing:.035em}
+a.lien{color:var(--r-text)}
+.teams-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:14px;padding:10px}
+.club-team-card{display:block;min-width:0;padding:16px;border-top:4px solid var(--club-1);border-radius:14px;background:#fff;color:inherit;text-decoration:none}
+.club-team-card:hover,.club-team-card:focus-visible{box-shadow:0 0 0 3px color-mix(in srgb,var(--club-1) 30%,transparent);outline:none}
+.club-team-card h3{margin:0;font-size:1.05rem;overflow-wrap:anywhere}
+.club-team-card .team-competition{min-height:1.4em;margin:4px 0 12px;color:var(--muted);font-size:.82rem}
+.club-team-card .team-record{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;text-align:center}
+.club-team-card .team-record strong{display:block;font-size:1.12rem;font-variant-numeric:tabular-nums}
+.club-team-card .team-record small{display:block;color:var(--muted);font-size:.68rem;font-weight:700}
+.club-team-card .team-goals{margin-top:12px;padding-top:10px;border-top:1px solid var(--line);font-variant-numeric:tabular-nums}
+.club-team-card .team-notes{margin:8px 0 0;color:var(--muted);font-size:.78rem}
+.search-tools input{padding:12px 14px;max-width:100%;width:min(34rem,100%);border:1px solid #64748b;border-radius:8px;font:inherit}
+.search-status{min-height:1.5em;color:var(--muted)}[hidden]{display:none!important}
+@media(max-width:980px){.players-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:740px){.players-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.match-row{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr) 18px;gap:7px;padding:11px 9px}
+.match-date{grid-column:1/-1;display:flex;gap:8px;align-items:baseline}.match-home{grid-column:1;text-align:right}
+.score-pair,.score-unavailable{grid-column:2}.match-away{grid-column:3}.match-chevron{grid-column:4;grid-row:2}
+.match-badges{grid-column:1/-1}.match-home:before,.match-away:before{display:block}
+}
+@media(max-width:520px){.handball-banner{padding:12px}
+.banner-inner{min-height:110px;gap:10px}.banner-copy{max-width:85%}
+.players-grid{grid-template-columns:1fr}
+.match-row{font-size:.87rem}.score-pill{min-width:28px;padding:5px 6px;font-size:.9rem}
+.match-date{font-size:.75rem}.match-home:before,.match-away:before{font-size:.55rem}
+.nav-cards{grid-template-columns:1fr}}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script></head><body><header class="handball-banner" style="--club-1:#00348D;--club-2:#E95323;--club-on-1:#ffffff">
+<div class="banner-inner"><div class="banner-copy"><div class="banner-heading">
+<strong>MONTPELLIER HANDBALL</strong><span>Identifiant FFHandball : 6134013</span></div>
+<div class="banner-nav"><nav aria-label="Fil d’Ariane"><a class="lien" href="../../../../index.html">6134013</a> / <a class="lien" href="../../../index.html">2025-2026</a> / <a class="lien" href="../../index.html">regional</a> / <a class="lien" href="../index.html">-15M</a></nav></div></div>
+<div class="banner-art" aria-hidden="true">
+<img src="../../../../../assets/bandeau-handball.png" alt="" decoding="async">
+</div></div></header><div class="wrap relation-links"></div>
+<header class="hero"><div class="wrap">
+<div class="team-hero-heading"><div><h1>MONTPELLIER HB CENTRE</h1>
+<p>2025-2026 · -15M · Compétitions : -15 ANS M 3E DIVISION, -15 ANS M 4E DIVISION · Statistiques d’équipe</p></div></div>
+</div></header>
+<main><div class="wrap">
+<div class="record team-record"><div><b>9 / 0 / 7</b><small>Bilan V / N / D</small><span class="record-detail">16 matchs joués à score officiel</span></div><div><b>497 / 443</b><small>Buts marqués / encaissés</small><span class="record-detail">Moyennes : 31,1 / 27,7</span></div><div><b>4</b><small>Victoires après avoir été mené</small><span class="record-detail">Sur 16 chronologies exploitables</span></div><div><b>46 / 41</b><small>Avance / retard maximum</small><span class="record-detail">Écarts observés hors tirs au but</span></div></div>
+<section class="card" style="margin-top:20px"><h2>Bilan domicile / extérieur</h2><div class="table-scroll"><table><thead><tr><th scope="col">Côté</th><th scope="col">Matchs (n)</th><th scope="col">V/N/D</th><th scope="col">% victoires (V/n)</th><th scope="col">Buts pour/n</th><th scope="col">Buts contre/n</th><th scope="col">Différence/n</th></tr></thead><tbody><tr><td>Domicile</td><td>8</td><td>5/0/3</td><td>62 %</td><td>31,9</td><td>24,5</td><td>7,4</td></tr><tr><td>Extérieur</td><td>8</td><td>4/0/4</td><td>50 %</td><td>30,2</td><td>30,9</td><td>-0,6</td></tr></tbody></table></div></section><section class="card" style="margin-top:20px"><h2>Victoire selon l'écart de score</h2>
+<p id="aide-equipe">Pour chaque écart exact, la probabilité est le nombre de matchs gagnés où cet écart a été atteint,
+ divisé par le nombre de matchs où il a été atteint au moins une fois (n).
+ Un match ne compte qu’une fois par écart et par équipe ; un nul n’est pas une victoire.
+ La référence réunit toutes les équipes du même périmètre (catégorie, strate et saison), chaque match vu des deux côtés.
+ L’égalité (0) est omise ; un point est absent lorsque n=0.</p>
+
+<div class="chart-box"><canvas id="chart-equipe" role="img" aria-label="Probabilité de victoire par écart exact" aria-describedby="aide-equipe"></canvas></div>
+<p>Trait plein et cercles : équipe ; pointillés et carrés : catégorie.</p>
+<h2>Nombre de matchs où chaque écart a été atteint</h2>
+<p>Barres : n matchs de l’équipe, le même dénominateur conditionnel que la courbe (pas le total des matchs joués).</p>
+<div class="chart-box"><canvas id="chart-ecarts-atteints" role="img" aria-label="Nombre de matchs par écart atteint" aria-describedby="aide-equipe"></canvas></div></section><section class="card" style="margin-top:20px"><h2>Réussite aux tirs enregistrés</h2><p>Buts / (buts + TIR + TIR_NON_CADRE + TIR_7M), sans ajouter les arrêts. Attention : les tirs manqués peuvent être sous-saisis.</p><div class="table-scroll"><table><thead><tr><th scope="col">Périmètre</th><th scope="col">Buts / tentatives enregistrées</th><th scope="col">Réussite</th></tr></thead><tbody><tr><td>Tous tirs</td><td>497/780</td><td>64 %</td></tr><tr><td>Hors 7 m</td><td>478/761</td><td>63 %</td></tr></tbody></table></div></section><section class="card" style="margin-top:20px"><h2>Séries de buts</h2><p>Suite sans but adverse, remise à zéro à chaque période.</p><div class="table-scroll"><table><thead><tr><th scope="col">Série</th><th scope="col">Médiane (buts)</th><th scope="col">Maximum (buts)</th></tr></thead><tbody><tr><td>Équipe</td><td>4,5</td><td>17</td></tr><tr><td>Subie</td><td>3,0</td><td>11</td></tr></tbody></table></div></section><section class="card" style="margin-top:20px"><h2>Profil par période</h2><div class="chart-box"><canvas id="chart-periodes" role="img" aria-label="Moyennes des buts pour et contre par période"></canvas></div><div class="table-scroll"><table><thead><tr><th scope="col">Période</th><th scope="col">Buts pour/n</th><th scope="col">Buts contre/n</th><th scope="col">Différence/n</th></tr></thead><tbody><tr><td>P1</td><td>11,4</td><td>10,6</td><td>0,8</td></tr><tr><td>P2</td><td>11,1</td><td>9,3</td><td>1,8</td></tr><tr><td>P3</td><td>8,6</td><td>7,8</td><td>0,8</td></tr></tbody></table></div></section><section class="card" style="margin-top:20px"><h2>Répartition des buts</h2><p>16 matchs ; dénominateur : 497 buts officiels.</p><div class="grid g4"><div class="card kpi"><span class="k-title">Part des 3 principaux buteurs</span><span class="k-val">41 %</span><span class="k-sub">Buts observés / 497 buts officiels</span></div><div class="card kpi"><span class="k-title">Buteurs distincts par match</span><span class="k-val">8,8</span><span class="k-sub">Somme des effectifs par match / 16 matchs</span></div></div><div class="table-scroll table-spaced"><table><thead><tr><th scope="col">Buteur</th><th scope="col">Buts</th><th scope="col">Part des buts officiels</th></tr></thead><tbody><tr><td><a class="lien" href="../joueurs/6134013110934_DEGHMACHE_Adem.html">DEGHMACHE Adem</a></td><td>82</td><td>16 %</td></tr><tr><td><a class="lien" href="../joueurs/6134013109645_MOUSSET%20REMISE_Lucien.html">MOUSSET REMISE Lucien</a></td><td>61</td><td>12 %</td></tr><tr><td><a class="lien" href="../joueurs/6134013110860_BOSTEAU_Nael.html">BOSTEAU Nael</a></td><td>60</td><td>12 %</td></tr><tr><td>Autres / sans auteur</td><td>294</td><td>59 %</td></tr></tbody></table></div></section><section class="card" style="margin-top:20px"><h2>Arrêts collectifs enregistrés</h2><p>ARRET + ARRET_7M. Zéro saisi ≠ zéro arrêt. Aucun pourcentage d’arrêts n’est calculé.</p><div class="table-scroll"><table><thead><tr><th scope="col">Périmètre</th><th scope="col">Total</th><th scope="col">Moyenne / match (n=16)</th></tr></thead><tbody><tr><td>Tous arrêts</td><td>167</td><td>10,4</td></tr><tr><td>Dont sur 7 m</td><td>0</td><td>0,0</td></tr></tbody></table></div></section><section class="card" style="margin-top:20px"><h2>Jets de 7 m</h2><p>16 matchs couverts. Tentatives = BUT_7M + TIR_7M ; ARRET_7M exclu du dénominateur.</p><div class="table-scroll"><table><thead><tr><th scope="col">Côté</th><th scope="col">Réussis / tentés</th><th scope="col">Réussite</th><th scope="col">Réussis/match (n=16)</th><th scope="col">Tentés/match (n=16)</th></tr></thead><tbody><tr><td>Équipe</td><td>19/19</td><td>100 %</td><td>1,2</td><td>1,2</td></tr><tr><td>Adversaires</td><td>18/18</td><td>100 %</td><td>1,1</td><td>1,1</td></tr></tbody></table></div><div class="table-scroll table-spaced"><table><thead><tr><th scope="col">Rencontre / adversaire</th><th scope="col">Équipe réussis/tentés (%)</th><th scope="col">Adversaires réussis/tentés (%)</th></tr></thead><tbody><tr><td>28/09/2025 · TEYRAN HBC</td><td>1/1 (100 %)</td><td>4/4 (100 %)</td></tr><tr><td>04/10/2025 · PRADES-LE-LEZ HB</td><td>0/0 (—)</td><td>0/0 (—)</td></tr><tr><td>12/10/2025 · LA CADOULE HB</td><td>0/0 (—)</td><td>0/0 (—)</td></tr><tr><td>18/10/2025 · FRONTIGNAN THAU HB 2</td><td>3/3 (100 %)</td><td>1/1 (100 %)</td></tr><tr><td>29/11/2025 · GRABELS HBC</td><td>1/1 (100 %)</td><td>2/2 (100 %)</td></tr><tr><td>07/12/2025 · PRADES-LE-LEZ HB</td><td>2/2 (100 %)</td><td>0/0 (—)</td></tr><tr><td>14/12/2025 · TEYRAN HBC 2</td><td>3/3 (100 %)</td><td>0/0 (—)</td></tr><tr><td>17/01/2026 · ST-MATHIEU HB</td><td>2/2 (100 %)</td><td>3/3 (100 %)</td></tr><tr><td>31/01/2026 · HANDBALL EN PAYS VIGANAIS</td><td>2/2 (100 %)</td><td>4/4 (100 %)</td></tr><tr><td>07/02/2026 · MTP CHAMBERTE HB 2</td><td>0/0 (—)</td><td>2/2 (100 %)</td></tr><tr><td>14/02/2026 · GRABELS HBC</td><td>2/2 (100 %)</td><td>0/0 (—)</td></tr><tr><td>21/02/2026 · PRADES-LE-LEZ HB</td><td>0/0 (—)</td><td>1/1 (100 %)</td></tr><tr><td>14/03/2026 · TEYRAN HBC 2</td><td>0/0 (—)</td><td>0/0 (—)</td></tr><tr><td>28/03/2026 · ST-MATHIEU HB</td><td>3/3 (100 %)</td><td>1/1 (100 %)</td></tr><tr><td>12/04/2026 · HANDBALL EN PAYS VIGANAIS</td><td>0/0 (—)</td><td>0/0 (—)</td></tr><tr><td>09/05/2026 · MTP CHAMBERTE HB 2</td><td>0/0 (—)</td><td>0/0 (—)</td></tr></tbody></table></div></section><section class="card" style="margin-top:20px"><h2>Discipline collective</h2><div class="table-scroll"><table><thead><tr><th scope="col">Type</th><th scope="col">Total</th><th scope="col">Par match (n=16)</th><th scope="col">Joueurs</th><th scope="col">Encadrement</th><th scope="col">Auteur non classé</th></tr></thead><tbody><tr><td>Exclusions 2 min</td><td>28</td><td>1,8</td><td>28</td><td>0</td><td>0</td></tr><tr><td>Avertissements</td><td>14</td><td>0,9</td><td>14</td><td>0</td><td>0</td></tr><tr><td>Disqualifications</td><td>1</td><td>0,1</td><td>1</td><td>0</td><td>0</td></tr><tr><td>Disqualifications avec rapport</td><td>0</td><td>0,0</td><td>0</td><td>0</td><td>0</td></tr></tbody></table></div><div class="table-scroll table-spaced"><table><thead><tr><th scope="col">Rencontre / adversaire</th><th scope="col">Exclusions 2 min</th><th scope="col">Avertissements</th><th scope="col">Disqualifications</th><th scope="col">Disqualifications avec rapport</th></tr></thead><tbody><tr><td>28/09/2025 · TEYRAN HBC</td><td>1</td><td>2</td><td>0</td><td>0</td></tr><tr><td>04/10/2025 · PRADES-LE-LEZ HB</td><td>3</td><td>1</td><td>0</td><td>0</td></tr><tr><td>12/10/2025 · LA CADOULE HB</td><td>1</td><td>2</td><td>0</td><td>0</td></tr><tr><td>18/10/2025 · FRONTIGNAN THAU HB 2</td><td>3</td><td>1</td><td>0</td><td>0</td></tr><tr><td>29/11/2025 · GRABELS HBC</td><td>1</td><td>0</td><td>0</td><td>0</td></tr><tr><td>07/12/2025 · PRADES-LE-LEZ HB</td><td>2</td><td>0</td><td>1</td><td>0</td></tr><tr><td>14/12/2025 · TEYRAN HBC 2</td><td>2</td><td>2</td><td>0</td><td>0</td></tr><tr><td>17/01/2026 · ST-MATHIEU HB</td><td>2</td><td>0</td><td>0</td><td>0</td></tr><tr><td>31/01/2026 · HANDBALL EN PAYS VIGANAIS</td><td>1</td><td>2</td><td>0</td><td>0</td></tr><tr><td>07/02/2026 · MTP CHAMBERTE HB 2</td><td>1</td><td>0</td><td>0</td><td>0</td></tr><tr><td>14/02/2026 · GRABELS HBC</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td>21/02/2026 · PRADES-LE-LEZ HB</td><td>2</td><td>0</td><td>0</td><td>0</td></tr><tr><td>14/03/2026 · TEYRAN HBC 2</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td>28/03/2026 · ST-MATHIEU HB</td><td>2</td><td>2</td><td>0</td><td>0</td></tr><tr><td>12/04/2026 · HANDBALL EN PAYS VIGANAIS</td><td>4</td><td>1</td><td>0</td><td>0</td></tr><tr><td>09/05/2026 · MTP CHAMBERTE HB 2</td><td>3</td><td>1</td><td>0</td><td>0</td></tr></tbody></table></div></section><section class="card" style="margin-top:20px"><h2>Séquence après temps mort d’équipe</h2><p>Sur les 5 buts suivants de la même période : buts équipe − buts adverses. Séquences interrompues par un autre TEMPS_MORT ou de moins de 5 buts exclues. Ce n’est pas un effet causal.</p><div class="card kpi"><span class="k-title">Différence moyenne après temps mort</span><span class="k-val">0,1</span><span class="k-sub">Somme des différences / 13 séquences</span></div><div class="table-scroll table-spaced"><table><thead><tr><th scope="col">Rencontre / adversaire</th><th scope="col">Différences retenues</th></tr></thead><tbody><tr><td>04/10/2025 · PRADES-LE-LEZ HB</td><td>-1, 1</td></tr><tr><td>07/12/2025 · PRADES-LE-LEZ HB</td><td>1, -1</td></tr><tr><td>14/12/2025 · TEYRAN HBC 2</td><td>1</td></tr><tr><td>17/01/2026 · ST-MATHIEU HB</td><td>-1, -5</td></tr><tr><td>31/01/2026 · HANDBALL EN PAYS VIGANAIS</td><td>3</td></tr><tr><td>21/02/2026 · PRADES-LE-LEZ HB</td><td>-1</td></tr><tr><td>28/03/2026 · ST-MATHIEU HB</td><td>-1, 1, 3</td></tr><tr><td>12/04/2026 · HANDBALL EN PAYS VIGANAIS</td><td>1</td></tr></tbody></table></div></section>
+<section class="card" style="margin-top:20px"><h2>Rencontres de l’équipe dans ce périmètre</h2>
+<div class="table-scroll"><table>
+<thead><tr><th>Date</th><th class="l">Rencontre</th><th>Score (recevant – visiteur)</th><th>Statut</th></tr></thead>
+<tbody><tr><td>09/05/2026</td><td class="l"><a class="lien" href="../rencontres/VAGJRFD_2026-05-09_MTP%20CHAMBERTE%20HB%202_vs_MONTPELLIER%20HB%20CENTRE.html">MTP CHAMBERTE HB 2 — MONTPELLIER HB CENTRE</a></td><td>27 – 39</td><td>Jouée</td></tr><tr><td>12/04/2026</td><td class="l"><a class="lien" href="../rencontres/VAGJREY_2026-04-12_MONTPELLIER%20HB%20CENTRE_vs_HANDBALL%20EN%20PAYS%20VIGANAIS.html">MONTPELLIER HB CENTRE — HANDBALL EN PAYS VIGANAIS</a></td><td>41 – 20</td><td>Jouée</td></tr><tr><td>28/03/2026</td><td class="l"><a class="lien" href="../rencontres/VAGJRET_2026-03-28_MONTPELLIER%20HB%20CENTRE_vs_ST-MATHIEU%20HB.html">MONTPELLIER HB CENTRE — ST-MATHIEU HB</a></td><td>26 – 25</td><td>Jouée</td></tr><tr><td>14/03/2026</td><td class="l"><a class="lien" href="../rencontres/VAGJREN_2026-03-14_MONTPELLIER%20HB%20CENTRE_vs_TEYRAN%20HBC%202.html">MONTPELLIER HB CENTRE — TEYRAN HBC 2</a></td><td>31 – 18</td><td>Jouée</td></tr><tr><td>21/02/2026</td><td class="l"><a class="lien" href="../rencontres/VAGJREK_2026-02-21_PRADES-LE-LEZ%20HB_vs_MONTPELLIER%20HB%20CENTRE.html">PRADES-LE-LEZ HB — MONTPELLIER HB CENTRE</a></td><td>28 – 24</td><td>Jouée</td></tr><tr><td>14/02/2026</td><td class="l"><a class="lien" href="../rencontres/VAGJREG_2026-02-14_MONTPELLIER%20HB%20CENTRE_vs_GRABELS%20HBC.html">MONTPELLIER HB CENTRE — GRABELS HBC</a></td><td>60 – 14</td><td>Jouée</td></tr><tr><td>07/02/2026</td><td class="l"><a class="lien" href="../rencontres/VAGJREB_2026-02-07_MONTPELLIER%20HB%20CENTRE_vs_MTP%20CHAMBERTE%20HB%202.html">MONTPELLIER HB CENTRE — MTP CHAMBERTE HB 2</a></td><td>35 – 23</td><td>Jouée</td></tr><tr><td>31/01/2026</td><td class="l"><a class="lien" href="../rencontres/VAGOAVC_2026-01-31_HANDBALL%20EN%20PAYS%20VIGANAIS_vs_MONTPELLIER%20HB%20CENTRE.html">HANDBALL EN PAYS VIGANAIS — MONTPELLIER HB CENTRE</a></td><td>28 – 31</td><td>Jouée</td></tr><tr><td>17/01/2026</td><td class="l"><a class="lien" href="../rencontres/VAGJRDR_2026-01-17_ST-MATHIEU%20HB_vs_MONTPELLIER%20HB%20CENTRE.html">ST-MATHIEU HB — MONTPELLIER HB CENTRE</a></td><td>39 – 24</td><td>Jouée</td></tr><tr><td>14/12/2025</td><td class="l"><a class="lien" href="../rencontres/VAGJRDL_2025-12-14_TEYRAN%20HBC%202_vs_MONTPELLIER%20HB%20CENTRE.html">TEYRAN HBC 2 — MONTPELLIER HB CENTRE</a></td><td>26 – 41</td><td>Jouée</td></tr><tr><td>07/12/2025</td><td class="l"><a class="lien" href="../rencontres/VAGJRDI_2025-12-07_MONTPELLIER%20HB%20CENTRE_vs_PRADES-LE-LEZ%20HB.html">MONTPELLIER HB CENTRE — PRADES-LE-LEZ HB</a></td><td>25 – 37</td><td>Jouée</td></tr><tr><td>29/11/2025</td><td class="l"><a class="lien" href="../rencontres/VAGJRDE_2025-11-29_GRABELS%20HBC_vs_MONTPELLIER%20HB%20CENTRE.html">GRABELS HBC — MONTPELLIER HB CENTRE</a></td><td>15 – 42</td><td>Jouée</td></tr><tr><td>18/10/2025</td><td class="l"><a class="lien" href="../rencontres/VAGDKQZ_2025-10-18_FRONTIGNAN%20THAU%20HB%202_vs_MONTPELLIER%20HB%20CENTRE.html">FRONTIGNAN THAU HB 2 — MONTPELLIER HB CENTRE</a></td><td>30 – 28</td><td>Jouée</td></tr><tr><td>12/10/2025</td><td class="l"><a class="lien" href="../rencontres/VAGDKQY_2025-10-12_MONTPELLIER%20HB%20CENTRE_vs_LA%20CADOULE%20HB.html">MONTPELLIER HB CENTRE — LA CADOULE HB</a></td><td>17 – 22</td><td>Jouée</td></tr><tr><td>04/10/2025</td><td class="l"><a class="lien" href="../rencontres/VAGDKQT_2025-10-04_MONTPELLIER%20HB%20CENTRE_vs_PRADES-LE-LEZ%20HB.html">MONTPELLIER HB CENTRE — PRADES-LE-LEZ HB</a></td><td>20 – 37</td><td>Jouée</td></tr><tr><td>28/09/2025</td><td class="l"><a class="lien" href="../rencontres/VAGFTVE_2025-09-28_TEYRAN%20HBC_vs_MONTPELLIER%20HB%20CENTRE.html">TEYRAN HBC — MONTPELLIER HB CENTRE</a></td><td>54 – 13</td><td>Jouée</td></tr></tbody></table></div></section>
+</div></main><script id="equipe-data" type="application/json">{"equipe": [{"ecart": -8, "n": 4, "gagnes": 0, "probabilite": 0.0}, {"ecart": -7, "n": 5, "gagnes": 0, "probabilite": 0.0}, {"ecart": -6, "n": 5, "gagnes": 0, "probabilite": 0.0}, {"ecart": -5, "n": 7, "gagnes": 1, "probabilite": 14.285714285714286}, {"ecart": -4, "n": 7, "gagnes": 1, "probabilite": 14.285714285714286}, {"ecart": -3, "n": 8, "gagnes": 2, "probabilite": 25.0}, {"ecart": -2, "n": 10, "gagnes": 3, "probabilite": 30.0}, {"ecart": -1, "n": 11, "gagnes": 4, "probabilite": 36.36363636363637}, {"ecart": 1, "n": 11, "gagnes": 9, "probabilite": 81.81818181818181}, {"ecart": 2, "n": 10, "gagnes": 9, "probabilite": 90.0}, {"ecart": 3, "n": 10, "gagnes": 9, "probabilite": 90.0}, {"ecart": 4, "n": 8, "gagnes": 7, "probabilite": 87.5}, {"ecart": 5, "n": 7, "gagnes": 7, "probabilite": 100.0}, {"ecart": 6, "n": 7, "gagnes": 7, "probabilite": 100.0}, {"ecart": 7, "n": 7, "gagnes": 7, "probabilite": 100.0}, {"ecart": 8, "n": 7, "gagnes": 7, "probabilite": 100.0}], "general": [{"ecart": -8, "n": 959, "gagnes": 7, "probabilite": 0.7299270072992701}, {"ecart": -7, "n": 1048, "gagnes": 12, "probabilite": 1.1450381679389312}, {"ecart": -6, "n": 1160, "gagnes": 29, "probabilite": 2.5}, {"ecart": -5, "n": 1279, "gagnes": 53, "probabilite": 4.143862392494136}, {"ecart": -4, "n": 1420, "gagnes": 115, "probabilite": 8.098591549295774}, {"ecart": -3, "n": 1602, "gagnes": 233, "probabilite": 14.544319600499376}, {"ecart": -2, "n": 1859, "gagnes": 446, "probabilite": 23.991393222162454}, {"ecart": -1, "n": 2212, "gagnes": 779, "probabilite": 35.21699819168174}, {"ecart": 1, "n": 2212, "gagnes": 1343, "probabilite": 60.714285714285715}, {"ecart": 2, "n": 1859, "gagnes": 1336, "probabilite": 71.86659494351802}, {"ecart": 3, "n": 1602, "gagnes": 1310, "probabilite": 81.77278401997503}, {"ecart": 4, "n": 1420, "gagnes": 1261, "probabilite": 88.80281690140845}, {"ecart": 5, "n": 1279, "gagnes": 1195, "probabilite": 93.43236903831118}, {"ecart": 6, "n": 1160, "gagnes": 1112, "probabilite": 95.86206896551724}, {"ecart": 7, "n": 1048, "gagnes": 1028, "probabilite": 98.09160305343511}, {"ecart": 8, "n": 959, "gagnes": 948, "probabilite": 98.85297184567257}], "details": {"periodes": {"labels": ["P1", "P2", "P3"], "datasets": [{"label": "Pour", "data": [11.375, 11.0625, 8.625]}, {"label": "Contre", "data": [10.5625, 9.3125, 7.8125]}]}}, "reference": "Catégorie"}</script><script>
+const data = JSON.parse(document.getElementById('equipe-data').textContent);
+if (typeof Chart !== 'undefined') {
+  const theme = getComputedStyle(document.documentElement);
+  // Même largeur d'axe Y et mêmes catégories/offset : centres X identiques.
+  const ecartX = () => ({type: 'category', offset: true,
+    ticks: {autoSkip: false, maxRotation: 0, minRotation: 0, font: {size: 10}},
+    title: {display: true, text: 'écart exact (buts) : mené − / mène +'}});
+  const ecartY = titre => ({min: 0, afterFit: axis => { axis.width = 76; },
+    title: {display: true, text: titre}});
+  const labelsEcarts = data.equipe.map(p => p.ecart > 0 ? '+' + p.ecart : String(p.ecart));
+  new Chart(document.getElementById('chart-equipe'), {
+    type: 'line',
+    data: {
+      labels: labelsEcarts,
+      datasets: [
+        {label: 'Équipe (trait plein)', data: data.equipe.map(p => p.probabilite),
+         borderColor: theme.getPropertyValue('--r').trim(), pointStyle: 'circle'},
+        {label: data.reference + ' (pointillés)', data: data.general.map(p => p.probabilite),
+         borderColor: theme.getPropertyValue('--club-3').trim(),
+         pointBackgroundColor: theme.getPropertyValue('--club-3').trim(),
+         pointBorderColor: theme.getPropertyValue('--club-3').trim(),
+         borderDash: [6, 4], pointStyle: 'rect'}
+      ].map(d => ({...d, spanGaps: false, tension: 0, pointRadius: 4}))
+    },
+    options: {responsive: true, maintainAspectRatio: false,
+      layout: {padding: 0, autoPadding: false},
+      scales: {x: ecartX(), y: {...ecartY('Victoires (%)'), max: 100,
+        ticks: {callback: value => value + ' %'}}},
+      plugins: {tooltip: {callbacks: {
+        label: ctx => ctx.dataset.label + ' : ' + ctx.formattedValue + ' %',
+        afterLabel: ctx => {
+          const p = (ctx.datasetIndex === 0 ? data.equipe : data.general)[ctx.dataIndex];
+          return `${p.gagnes} victoire(s) / n = ${p.n} matchs-équipe`;
+        }}}}
+    }
+  });
+  new Chart(document.getElementById('chart-ecarts-atteints'), {
+    type: 'bar', data: {labels: labelsEcarts, datasets: [
+      {label: 'Équipe : matchs ayant atteint cet écart', data: data.equipe.map(p => p.n),
+       backgroundColor: theme.getPropertyValue('--r').trim()}]},
+    options: {responsive: true, maintainAspectRatio: false, layout: {padding: 0, autoPadding: false},
+      scales: {x: ecartX(), y: {...ecartY('Matchs (n)'), ticks: {precision: 0}}}}
+  });
+  if (data.details) {
+    for (const [id, source] of Object.entries(data.details)) {
+      new Chart(document.getElementById('chart-' + id), {
+        type: 'bar', data: {...source, datasets: source.datasets.map((d, i) => ({...d,
+          backgroundColor: theme.getPropertyValue(id === 'periodes' && i === 1 ? '--club-3' : i % 2 ? '--v' : '--r').trim(),
+          borderColor: theme.getPropertyValue('--text').trim() || '#333',
+          borderWidth: 1}))},
+        options: {responsive: true, maintainAspectRatio: false,
+          scales: {y: {beginAtZero: true}}}
+      });
+    }
+  }
+}
+</script><script id="hb-export" type="application/json">{"version": 1, "saison": "2025-2026", "club": "6134013", "club_nom": "MONTPELLIER HANDBALL", "competition": "-15M", "competition_id": null, "strate": "regional", "regroupement": "categorie", "categorie_id": 2793, "scope_id": "categorie:2793", "competitions": ["-15 ANS M 1ERE DIVISION", "-15 ANS M 2E DIVISION", "-15 ANS M 3E DIVISION", "-15 ANS M 4E DIVISION"], "couleur_1": "#00348D", "couleur_2": "#E95323", "couleur_3": "#CC5500", "kind": "equipe", "identite": ["2025-2026", "6134013", "regional", "categorie:2793", "equipe", 14420], "equipe_id": 14420, "competition_equipe_id": null, "competitions_equipe": ["-15 ANS M 3E DIVISION", "-15 ANS M 4E DIVISION"], "label": "MONTPELLIER HB CENTRE"}</script></body></html>

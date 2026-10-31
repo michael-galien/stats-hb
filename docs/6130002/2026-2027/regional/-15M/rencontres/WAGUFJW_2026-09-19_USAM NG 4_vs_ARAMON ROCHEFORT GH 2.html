@@ -34,7 +34,7 @@ main{margin-top:-64px;padding:0 20px 40px}
 .grid{display:grid;gap:18px}
 .g2{grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr))}
 .g4{grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr))}
-.card{min-width:0}.table-scroll{overflow-x:auto}
+.card{min-width:0}.table-scroll{overflow-x:auto}.table-spaced{margin-top:16px}
 .card{background:var(--card);border-radius:16px;box-shadow:0 1px 2px rgba(15,23,42,.06),0 8px 24px rgba(15,23,42,.06);padding:20px}
 .card h2{margin:0 0 14px;font-size:1.05rem;display:flex;align-items:center;gap:8px}
 .card h2 .tag{font-size:.7rem;font-weight:600;padding:2px 8px;border-radius:999px;color:#fff}
@@ -157,7 +157,8 @@ background:color-mix(in srgb,var(--club-1) 7%,white)}
 .player-stat small{display:block;margin-top:4px;color:#475569;font-size:.65rem;font-weight:700;letter-spacing:.035em}
 a.lien{color:var(--r-text)}
 .teams-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:14px;padding:10px}
-.club-team-card{min-width:0;padding:16px;border-top:4px solid var(--club-1);border-radius:14px;background:#fff}
+.club-team-card{display:block;min-width:0;padding:16px;border-top:4px solid var(--club-1);border-radius:14px;background:#fff;color:inherit;text-decoration:none}
+.club-team-card:hover,.club-team-card:focus-visible{box-shadow:0 0 0 3px color-mix(in srgb,var(--club-1) 30%,transparent);outline:none}
 .club-team-card h3{margin:0;font-size:1.05rem;overflow-wrap:anywhere}
 .club-team-card .team-competition{min-height:1.4em;margin:4px 0 12px;color:var(--muted);font-size:.82rem}
 .club-team-card .team-record{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;text-align:center}
